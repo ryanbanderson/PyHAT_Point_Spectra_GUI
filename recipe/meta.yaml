@@ -14,7 +14,7 @@ build:
 
 requirements:
   build:
-    - python >=3
+    - python x.x
     - pyqt
     - numpy>=1.18
     - pandas
@@ -25,7 +25,7 @@ requirements:
     - plio
     - pyhat
   run:
-    - python >=3
+    - python x.x
     - pyqt
     - numpy>=1.18
     - pandas
