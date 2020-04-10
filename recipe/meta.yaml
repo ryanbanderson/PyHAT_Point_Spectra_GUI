@@ -16,23 +16,24 @@ requirements:
   build:
     - python >=3
     - pyqt
-    - numpy
+    - numpy>=1.18
     - pandas
     - scipy
     - matplotlib
     - scikit-learn
     - docutils
+    - plio
     - pyhat
-    - setuptools
   run:
     - python >=3
     - pyqt
-    - numpy
+    - numpy>=1.18
     - pandas
     - scipy
     - matplotlib
     - scikit-learn
     - docutils
+    - plio
     - pyhat
 
 test:
