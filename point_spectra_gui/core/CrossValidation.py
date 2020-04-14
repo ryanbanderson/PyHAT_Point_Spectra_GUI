@@ -258,8 +258,7 @@ class CrossValidation(Ui_Form, Modules):
                 alphas = None
                 calc_path = False
                 paramgrid = paramgrids[key]
-            progbar = QtWidgets.QProgressBar()
-            cv_obj = cv.cv(paramgrid, progressbar=progbar)
+            cv_obj = cv.cv(paramgrid)
 
             data_for_cv_out, cv_results, cvmodels, cvmodelkeys, cvpredictkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
                                                                                          ycol=yvars, yrange=yrange, method=method,
@@ -283,21 +282,23 @@ class CrossValidation(Ui_Form, Modules):
                 self.model_xvars[key] = xvars
                 self.model_yvars[key] = yvars
                 if method != 'GP':
-                    coef = np.squeeze(cvmodels[n].model.coef_)
-                    coef = pd.DataFrame(coef)
-                    coef.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
-                    coef = coef.T
-                    coef[('meta', 'Model')] = key
                     try:
-                        coef[('meta', 'Intercept')] = cvmodels[n].model.intercept_
+                        coef = np.squeeze(cvmodels[n].model.coef_)
+                        coef = pd.DataFrame(coef)
+                        coef.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
+                        coef = coef.T
+                        coef[('meta', 'Model')] = key
+                        try:
+                            coef[('meta', 'Intercept')] = cvmodels[n].model.intercept_
+                        except:
+                            pass
+                        try:
+                            self.data['Model Coefficients'] = spectral_data(
+                                pd.concat([self.data['Model Coefficients'].df, coef]))
+                        except:
+                            self.data['Model Coefficients'] = spectral_data(coef)
                     except:
                         pass
-                    try:
-                        self.data['Model Coefficients'] = spectral_data(
-                            pd.concat([self.data['Model Coefficients'].df, coef]))
-                    except:
-                        self.data['Model Coefficients'] = spectral_data(coef)
-
 
         number = 1
         cvid = str('CV Results - ' + yvars[0][1])
