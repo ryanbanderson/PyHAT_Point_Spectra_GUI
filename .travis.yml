@@ -1,16 +1,16 @@
 language: generic
 
 env:
-  - PYTHON_VERSION=3.5
   - PYTHON_VERSION=3.6
+  - PYTHON_VERSION=3.7
 os:
   - linux
   - osx
 
 branches:
-only:
-  - dev
-  - master
+  only:
+    - dev
+    - master
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
@@ -32,9 +32,9 @@ install:
   # Install dependencies
   - conda config --add channels usgs-astrogeology
   - conda config --add channels conda-forge
-  - conda env create -q -f environment.yml -n test_env python=$PYTHON_VERSION
+  - conda env create -f environment.yml -n test_env python=$PYTHON_VERSION
   - source activate test_env
-
+  - conda install python=$PYTHON_VERSION
   # Development installation
   - conda install pip setuptools
   - conda install --quiet pytest pytest-cov pytest-qt nbsphinx
@@ -49,12 +49,12 @@ after_success:
   # Anaconda Upload
   - conda deactivate
   - conda install conda-build anaconda-client
-  - conda config --set anaconda_upload no
-  - conda build recipe -q
+
   - builddir=(`conda build recipe --output`)
   - |
     if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-        anaconda -t="$CONDA_UPLOAD_TOKEN" upload $builddir --force;
+        conda config --set anaconda_upload yes;
+        conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION -c usgs-astrogeology recipe;
     fi
 
   # Docs to gh-pages
