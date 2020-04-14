@@ -24,17 +24,6 @@ class RegressionPredict(Ui_Form, Modules):
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
         self.chooseDataListWidget.itemSelectionChanged.connect(lambda: self.setComboBox(self.chooseModelComboBox, self.modelkeys))
 
-    def setup(self):
-        self.connectWidgets(setup=True)
-        datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
-        modelkey = self.chooseModelComboBox.currentText()
-        try:
-            for datakey in datakeys:
-                self.list_amend(self.predictkeys, self.predict_count, modelkey + ' - ' + datakey + ' - Predict')
-                self.data[datakey].df['predict',modelkey + ' - ' + datakey + ' - Predict'] = 99999
-        except Exception as e:
-            print(e)
-
     def run(self):
         datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
         modelkey = self.chooseModelComboBox.currentText()

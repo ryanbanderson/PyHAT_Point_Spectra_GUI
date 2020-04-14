@@ -26,9 +26,6 @@ class WriteToCSV(Ui_Form, Modules):
         self.changeComboListVars(self.variablesToWriteListWidget, choices)
         self.variablesToWriteListWidget.selectAll()
 
-    def setup(self):
-        self.connectWidgets(setup=True)
-
     def run(self):
         datakey = self.chooseDataSetComboBox.currentText()
         filename = self.specifyAFilenameLineEdit.text()
