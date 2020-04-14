@@ -8,9 +8,9 @@ version: '0.1.0.{build}'
 environment:
   matrix:
     - PYTHON: "C:\\Miniconda3-x64\\Scripts\\activate.bat"
-      PYTHON_VERSION: 3.6
-    # - PYTHON: "C:\\Miniconda3-x64\\Scripts\\activate.bat"
-    #   PYTHON_VERSION: 3.7
+      PYTHON_VERSION: 3.7
+    - PYTHON: "C:\\Miniconda3-x64\\Scripts\\activate.bat"
+      PYTHON_VERSION: 3.8
 
 platform:
   - x64
@@ -20,14 +20,11 @@ configuration:
 
 install:
   - cmd: set PATH="C:\\Miniconda3-x64\\Scripts\\";"C:\\Miniconda3-x64\\";%PATH%
-  - cmd: call %PYTHON%
   - cmd: conda config --set always_yes yes --set changeps1 no
-  - cmd: conda install -n base conda=4.8.2
-  - cmd: conda install conda-build anaconda-client
+  - cmd: conda update -q conda
   - cmd: conda config --set ssl_verify false
-  - cmd: conda env create -f environment.yml -n test_env python=%PYTHON_VERSION%
-  - cmd: conda activate test_env
-  - cmd: conda install python=%PYTHON_VERSION%
+  - cmd: conda env create -f environment.yml -n test_env python=$env:PYTHON_VERSION
+  - cmd: activate test_env
   - cmd: conda install pytest-cov
   # https://pythonhosted.org/CodeChat/appveyor.yml.html
   - cmd: python -m pip install -U pip
@@ -39,18 +36,19 @@ build_script:
 test_script:
   - cmd: pytest --cov=point_spectra_gui
 
-on_success:
+before_deploy:
   - cmd: activate base
-  # - cmd: conda config --set anaconda_upload yes
-  # - cmd: conda build -c conda-forge -c usgs-astrogeology --token %CONDA_UPLOAD_TOKEN% RECIPEPATH .
-  # - cmd: set builddir = conda build recipe --output;
-  - ps:
-      echo $env:APPVEYOR_PULL_REQUEST_NUMBER;
-      if (-not $env:APPVEYOR_PULL_REQUEST_NUMBER) {
-        echo "Not a PR"
-        if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
-            echo "master branch"
-            conda config --set anaconda_upload yes;
-            conda build -c conda-forge -c usgs-astrogeology --token %CONDA_UPLOAD_TOKEN% RECIPEPATH .
-          };
+
+deploy_script:
+  ps:
+    if (-not ($env:APPVEYOR_PULL_REQUEST_NUMBER)) {
+      if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+          conda install conda-build anaconda-client;
+          conda config --set anaconda_upload yes;
+          conda build -c conda-forge -c usgs-astrogeology --python $env:PYTHON_VERSION --token %CONDA_UPLOAD_TOKEN% RECIPE_PATH recipe;
+          conda build purge;
       };
+    };
+
+on_success:
+  - ps: echo "Success!"

@@ -14,29 +14,26 @@ build:
 
 requirements:
   build:
-    - python=3
+    - python x.x
     - pyqt
-    - numpy
+    - numpy>=1.18
     - pandas
     - scipy
     - matplotlib
     - scikit-learn
     - docutils
-    - PyYAML=3.12
-    - cython
+    - plio
     - pyhat
-    - setuptools
   run:
-    - python=3
+    - python x.x
     - pyqt
-    - numpy
+    - numpy>=1.18
     - pandas
     - scipy
     - matplotlib
     - scikit-learn
     - docutils
-    - PyYAML=3.12
-    - cython
+    - plio
     - pyhat
 
 test:
