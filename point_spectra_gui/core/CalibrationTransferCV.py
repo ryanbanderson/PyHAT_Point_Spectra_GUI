@@ -4,7 +4,7 @@ from point_spectra_gui.ui.CalibrationTransferCV import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.core.caltranMethods import *
 from point_spectra_gui.util import spectral_data
-from libpyhat.transform import cal_tran
+from libpyhat.transform import cal_tran, caltran_utils
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
@@ -164,7 +164,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
         #get the data sets
         A = self.data[datakeyA].df
         B = self.data[datakeyB].df
-        A_mean,B_mean = caltran_prepare_data.prepare_data(A,B,dataAmatchcol,dataBmatchcol)
+        A_mean,B_mean = caltran_utils.prepare_data(A,B,dataAmatchcol,dataBmatchcol)
 
         
 
