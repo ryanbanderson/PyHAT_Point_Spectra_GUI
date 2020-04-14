@@ -1,8 +1,8 @@
 language: generic
 
 env:
-  - PYTHON_VERSION=3.6
   - PYTHON_VERSION=3.7
+  - PYTHON_VERSION=3.8
 os:
   - linux
   - osx
@@ -27,14 +27,13 @@ before_install:
   - conda update -q conda
   - conda info -a   # Useful for debugging any issues with conda
   # Create the env
+  - conda env create -f environment.yml -n test_env python=$PYTHON_VERSION
+  - source activate test_env
 
 install:
   # Install dependencies
   - conda config --add channels usgs-astrogeology
   - conda config --add channels conda-forge
-  - conda env create -f environment.yml -n test_env python=$PYTHON_VERSION
-  - source activate test_env
-  - conda install python=$PYTHON_VERSION
   # Development installation
   - conda install pip setuptools
   - conda install --quiet pytest pytest-cov pytest-qt nbsphinx
@@ -46,18 +45,10 @@ script:
 after_success:
   # Code Coverage
   - coveralls
-  # Anaconda Upload
-  - conda deactivate
-  - conda install conda-build anaconda-client
 
-  - builddir=(`conda build recipe --output`)
-  - |
-    if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-        conda config --set anaconda_upload yes;
-        conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION -c usgs-astrogeology recipe;
-    fi
-
-  # Docs to gh-pages
-  - source activate test_env  # Reactivate the env to have all deps installed.
-  - travis-sphinx build --source=docs --nowarn # The sphinx build script
-  - travis-sphinx deploy --branches=master
+deploy:
+  provider: script
+  cleanup: false
+  script: bash deploy.sh $PYTHON_VERSION
+  on:
+    branch: master
