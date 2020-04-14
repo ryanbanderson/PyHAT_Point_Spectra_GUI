@@ -46,7 +46,7 @@ class SplitDataset(Ui_Form, Modules):
                 Modules.data_count += 1
                 self.list_amend(self.datakeys, Modules.data_count, new_datakey)
                 if setup == False:
-                    self.data[new_datakey] = spectral_data(self.data[datakey].df.ix[coldata == i])
+                    self.data[new_datakey] = spectral_data(self.data[datakey].df.iloc[coldata == i])
 
     def setup(self):
         self.connectWidgets(setup=True)
