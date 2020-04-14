@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>203</width>
+    <width>422</width>
     <height>304</height>
    </rect>
   </property>
@@ -89,27 +89,22 @@ used to precompute the kernel matrix.</string>
         </property>
         <item>
          <property name="text">
-          <string>rbf</string>
+          <string>Radial Basis Function</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>poly</string>
+          <string>Polynomial</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>sigmoid</string>
+          <string>Sigmoid</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>linear</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>precomputed</string>
+          <string>Linear</string>
          </property>
         </item>
        </widget>

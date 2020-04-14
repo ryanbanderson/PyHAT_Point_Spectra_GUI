@@ -41,20 +41,28 @@ class Ui_Form(Ui_Form, Modules):
         self.maxIterationsLineEdit.setText(str(svr.max_iter))
 
     def run(self):
-        kernels = [str(i.text()) for i in self.kernel_list.selectedItems()]
+        kernel_lookup = {'Radial Basis Function':'rbf',
+                         'Linear':'linear',
+                         'Polynomial':'poly',
+                         'Sigmoid':'sigmoid',
+                         'Precomputed':'precomputed'}
+        kernels = [kernel_lookup[i.text()] for i in self.kernel_list.selectedItems()]
+
         shrinking_items = [i.text() == 'True' for i in self.shrinking_list.selectedItems()]
         params = {'C': [float(i) for i in self.cLineEdit.text().split(',')],
                   'epsilon': [float(i) for i in self.epsilonLineEdit.text().split(',')],
                   'kernel': kernels,
-                  'degree': [int(i) for i in self.degreeLineEdit.text().split(',')],
                   'gamma': ['auto'],
-                  'coef0': [float(i) for i in self.coeff0LineEdit.text().split(',')],
                   'shrinking': shrinking_items,
                   'tol': [float(i) for i in self.toleranceLineEdit.text().split(',')],
                   'cache_size': [200],
                   'verbose': [True],
                   'max_iter': [int(i) for i in self.maxIterationsLineEdit.text().split(',')]}
 
+        if 'linear' in kernels:
+            params['coef0'] = [float(i) for i in self.coeff0LineEdit.text().split(',')]
+        if 'poly' in kernels:
+            params['degree'] = [int(i) for i in self.degreeLineEdit.text().split(',')]
         return params
 
 
