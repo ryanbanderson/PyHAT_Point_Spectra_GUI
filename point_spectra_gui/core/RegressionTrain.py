@@ -158,7 +158,7 @@ class RegressionTrain(Ui_Form, Modules):
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
         self.list_amend(self.modelkeys, self.count, modelkey)
-        self.models[modelkey] = regression.regression([method], [yrange], [params])
+        self.models[modelkey] = regression.regression([method], [params])
 
         x = self.data[datakey].df[xvars]
         y = self.data[datakey].df[yvars]
