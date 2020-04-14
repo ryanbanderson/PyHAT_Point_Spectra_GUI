@@ -1,3 +1,5 @@
+| OS    | Status |
+|-------|--------|
 | OSX   | [![Build Status](https://travis-ci.org/USGS-Astrogeology/PyHAT_Point_Spectra_GUI.svg?branch=master)](https://travis-ci.org/USGS-Astrogeology/PyHAT_Point_Spectra_GUI) |
 |Linux  | [![Build Status](https://travis-ci.org/USGS-Astrogeology/PyHAT_Point_Spectra_GUI.svg?branch=master)](https://travis-ci.org/USGS-Astrogeology/PyHAT_Point_Spectra_GUI) |
 |Windows| [![Build status](https://ci.appveyor.com/api/projects/status/orfb1txhicspo7ap/branch/master?svg=true)](https://ci.appveyor.com/project/jlaura/pyhat-point-spectra-gui/branch/dev)|
@@ -47,5 +49,3 @@ And then follow the instructions above to install a fresh version.
 Run into bugs or features that are missing? Let us know by reporting an issue!
 
 - The UI's backend is designed and created in Python with the QT framework
-
-
