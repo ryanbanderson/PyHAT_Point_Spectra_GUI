@@ -19,10 +19,10 @@ class Ui_Form(Ui_Form, Modules):
 
     def connectWidgets(self):
         br = MedianFilter()
-        self.windowSizeSpinBox.setValue(br.window_)
+        self.windowSizeSpinBox.setValue(br.window_size)
 
     def run(self):
-        methodParameters = {'window_': self.windowSizeSpinBox.value()}
+        methodParameters = {'window_size': self.windowSizeSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, MedianFilter())
 
 

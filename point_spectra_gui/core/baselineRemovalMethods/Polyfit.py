@@ -19,12 +19,12 @@ class Ui_Form(Ui_Form, Modules):
 
     def connectWidgets(self):
         br = PolyFit()
-        self.orderSpinBox.setValue(br.poly_order_)
-        self.numOfStandardDeviationsSpinBox.setValue(br.stdv_)
+        self.orderSpinBox.setValue(br.poly_order)
+        self.numOfStandardDeviationsSpinBox.setValue(br.num_stdv)
 
     def run(self):
-        methodParameters = {'poly_order_': self.orderSpinBox.value(),
-                            'stdv_': self.numOfStandardDeviationsSpinBox.value()}
+        methodParameters = {'poly_order': self.orderSpinBox.value(),
+                            'num_stdv': self.numOfStandardDeviationsSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, PolyFit())
 
 
