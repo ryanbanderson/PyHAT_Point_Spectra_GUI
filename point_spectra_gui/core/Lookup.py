@@ -68,10 +68,6 @@ class Lookup(Ui_Form, Modules):
 
 
 
-    def setup(self):
-        # TODO this file needs to be redone to fit the similar setup to `LoadData`
-        pass
-
     def run(self):
         self.lookupfilename = self.lookupfile.text()
         self.read_lookupdata()

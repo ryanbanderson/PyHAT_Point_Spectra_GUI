@@ -19,9 +19,6 @@ class PeakAreas(Ui_Form, Modules):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.peakMinimaLineEdit))
 
-    def setup(self):
-        datakey = self.chooseDataComboBox.currentText()
-        self.data[datakey].df[('peak_area',99999)] = 99999  #create a dummy column so that "peak_Area" shows up as an option in later modules
 
     def run(self):
         datakey = self.chooseDataComboBox.currentText()

@@ -41,7 +41,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
     Form = QtWidgets.QWidget()
-    ui = Interpolation()
+    ui = Resample()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
