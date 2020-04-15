@@ -23,16 +23,16 @@ class Ui_Form(Ui_Form, Modules):
         self.smoothnessDoubleSpinBox.setMaximum(10000000)
         self.convergenceThresholdDoubleSpinBox.setDecimals(6)
 
-        self.asymmetryDoubleSpinBox.setValue(als.asymmetry_)
-        self.smoothnessDoubleSpinBox.setValue(als.smoothness_)
-        self.maxNumOfIterationsSpinBox.setValue(als.max_iters_)
-        self.convergenceThresholdDoubleSpinBox.setValue(als.conv_thresh_)
+        self.asymmetryDoubleSpinBox.setValue(als.asymmetry_param)
+        self.smoothnessDoubleSpinBox.setValue(als.smoothness_param)
+        self.maxNumOfIterationsSpinBox.setValue(als.max_iters)
+        self.convergenceThresholdDoubleSpinBox.setValue(als.conv_thresh)
 
     def run(self):
-        methodParameters = {'asymmetry_': self.asymmetryDoubleSpinBox.value(),
-                            'smoothness_': self.smoothnessDoubleSpinBox.value(),
-                            'max_iters_': self.maxNumOfIterationsSpinBox.value(),
-                            'conv_thresh_': self.convergenceThresholdDoubleSpinBox.value()}
+        methodParameters = {'asymmetry_param': self.asymmetryDoubleSpinBox.value(),
+                            'smoothness_param': self.smoothnessDoubleSpinBox.value(),
+                            'max_iters': self.maxNumOfIterationsSpinBox.value(),
+                            'conv_thresh': self.convergenceThresholdDoubleSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, ALS())
 
 

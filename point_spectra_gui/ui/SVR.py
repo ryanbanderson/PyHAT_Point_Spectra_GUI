@@ -3,7 +3,9 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -39,7 +41,6 @@ class Ui_Form(object):
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.kernelLabel)
         self.kernelComboBox = QtWidgets.QComboBox(self.formGroupBox)
         self.kernelComboBox.setObjectName("kernelComboBox")
-        self.kernelComboBox.addItem("")
         self.kernelComboBox.addItem("")
         self.kernelComboBox.addItem("")
         self.kernelComboBox.addItem("")
@@ -127,11 +128,10 @@ class Ui_Form(object):
 "If none is given, \'rbf\' will be used. If a callable is given it is\n"
 "used to precompute the kernel matrix."))
         self.kernelComboBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
-        self.kernelComboBox.setItemText(0, ("rbf"))
-        self.kernelComboBox.setItemText(1, ("poly"))
-        self.kernelComboBox.setItemText(2, ("sigmoid"))
-        self.kernelComboBox.setItemText(3, ("linear"))
-        self.kernelComboBox.setItemText(4, ("precomputed"))
+        self.kernelComboBox.setItemText(0, ("Radial Basis Function"))
+        self.kernelComboBox.setItemText(1, ("Polynomial"))
+        self.kernelComboBox.setItemText(2, ("Sigmoid"))
+        self.kernelComboBox.setItemText(3, ("Linear"))
         self.degreeLabel.setText(("Degree"))
         self.gammaLabel.setText(("Gamma"))
         self.gammaComboBox.setToolTip(_translate("Form", "Kernel coefficient for \'rbf\', \'poly\' and \'sigmoid\'. If gamma is \'auto\'\n"
@@ -175,4 +175,3 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

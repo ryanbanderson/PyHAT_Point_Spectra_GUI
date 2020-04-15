@@ -112,33 +112,6 @@ class RegressionTrain(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[keys[i - 1]].selectiveSetGuiParams(dict[i])
 
-    def setup(self):
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)
-
-        method = self.chooseAlgorithmComboBox.currentText()
-        xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
-        yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
-        yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
-        try:
-            params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
-            try:
-                modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
-            except:
-                modelkey = "Problem naming model - make sure you have selected a y variable"
-                pass
-            self.list_amend(self.modelkeys, self.model_count, modelkey)
-            self.models[modelkey] = regression.regression([method], [yrange], [params])
-            self.model_xvars[modelkey] = xvars
-            self.model_yvars[modelkey] = yvars
-
-            if 'Model Coefficients' not in self.datakeys:
-                self.datakeys.append('Model Coefficients')
-
-            else:
-                pass
-
-        except:
-            pass
 
     def run(self):
         if 'Model Coefficients' in self.datakeys:
@@ -158,7 +131,7 @@ class RegressionTrain(Ui_Form, Modules):
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
         self.list_amend(self.modelkeys, self.count, modelkey)
-        self.models[modelkey] = regression.regression([method], [yrange], [params])
+        self.models[modelkey] = regression.regression([method], [params])
 
         x = self.data[datakey].df[xvars]
         y = self.data[datakey].df[yvars]

@@ -3,7 +3,9 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -50,18 +52,6 @@ class Ui_Form(object):
         self.n_nonzero_coefsLineEdit = QtWidgets.QLineEdit(self.formGroupBox)
         self.n_nonzero_coefsLineEdit.setObjectName("n_nonzero_coefsLineEdit")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.n_nonzero_coefsLineEdit)
-        self.positiveLabel = QtWidgets.QLabel(self.formGroupBox)
-        self.positiveLabel.setObjectName("positiveLabel")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.positiveLabel)
-        self.positive_list = QtWidgets.QListWidget(self.formGroupBox)
-        self.positive_list.setMaximumSize(QtCore.QSize(16777215, 50))
-        self.positive_list.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
-        self.positive_list.setObjectName("positive_list")
-        item = QtWidgets.QListWidgetItem()
-        self.positive_list.addItem(item)
-        item = QtWidgets.QListWidgetItem()
-        self.positive_list.addItem(item)
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.positive_list)
         self.verticalLayout.addWidget(self.formGroupBox)
 
         self.retranslateUi(Form)
@@ -89,14 +79,6 @@ class Ui_Form(object):
         self.normalize_list.setSortingEnabled(__sortingEnabled)
         self.n_nonzero_coefsLabel.setText(("# of coefficients"))
         self.n_nonzero_coefsLineEdit.setText(("500"))
-        self.positiveLabel.setText(("Force positive coefficients"))
-        __sortingEnabled = self.positive_list.isSortingEnabled()
-        self.positive_list.setSortingEnabled(False)
-        item = self.positive_list.item(0)
-        item.setText(("True"))
-        item = self.positive_list.item(1)
-        item.setText(("False"))
-        self.positive_list.setSortingEnabled(__sortingEnabled)
 
 
 if __name__ == "__main__":
@@ -107,4 +89,3 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

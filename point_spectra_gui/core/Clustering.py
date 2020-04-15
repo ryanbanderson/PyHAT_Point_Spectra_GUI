@@ -72,12 +72,6 @@ class Clustering(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
-    def setup(self):
-        method = self.chooseMethodComboBox.currentText()
-        datakey = self.chooseDataComboBox.currentText()
-        if method != 'Choose an algorithm':
-            self.data[datakey].df[(method, 'Cluster')] = 99999  # create the column to hold the clustering results,
-            # fill with dummy data until clustering is actually run
 
     def run(self):
         method = self.chooseMethodComboBox.currentText()

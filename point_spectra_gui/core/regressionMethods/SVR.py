@@ -44,9 +44,16 @@ class Ui_Form(Ui_Form, Modules):
         self.maxIterationsSpinBox.setValue(svr.max_iter)
 
     def run(self):
+        kernel_lookup = {'Radial Basis Function': 'rbf',
+                         'Linear': 'linear',
+                         'Polynomial': 'poly',
+                         'Sigmoid': 'sigmoid',
+                         'Precomputed': 'precomputed'}
+        kernel = kernel_lookup[self.kernelComboBox.currentText()]
+
         params = {'C': self.cDoubleSpinBox.value(),
                   'epsilon': self.epsilonDoubleSpinBox.value(),
-                  'kernel': self.kernelComboBox.currentText(),
+                  'kernel': kernel,
                   'degree': self.degreeSpinBox.value(),
                   'gamma': self.gammaComboBox.currentText(),
                   'coef0': self.coeff0DoubleSpinBox.value(),

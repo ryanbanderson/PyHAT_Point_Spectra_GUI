@@ -102,28 +102,6 @@ class SubmodelBlend(Ui_Form, Modules):
             else:
                 list[i].setHidden(True)
 
-    def setup(self):
-        blendranges = []
-        datakey = self.ChooseDataComboBox.currentText()
-
-        # start with the low model
-        blendranges.append([-9999, float(self.lowPredictionMaxSpinBox.value())])
-
-        # append the intermediate submodels
-        for i in range(0, self.index_spin.value()):
-            temp_vals = self.subwidgets[i].getValues()
-            blendranges.append(temp_vals[1])
-
-        # append the high model
-        blendranges.append([float(self.highPredictionMinSpinBox.value()), 9999])
-
-        sm_obj = sm.sm(blendranges)
-        # save the blended predictions
-        try:
-            self.data[datakey].df[('predict', 'Blended-Predict ' + str(sm_obj.blendranges))] = 99999
-        except:
-            pass
-
     def run(self):
         blendranges = []
         submodel_blend_names = []

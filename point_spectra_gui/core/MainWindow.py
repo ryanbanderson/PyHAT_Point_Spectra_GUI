@@ -1,9 +1,7 @@
 import multiprocessing as mp
 import os.path
-import pickle
 import sys
 import time
-import warnings
 import json
 
 import os
@@ -16,7 +14,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtCore import QSettings
 
 from point_spectra_gui import core, __version__
 from point_spectra_gui.ui.MainWindow import Ui_MainWindow
