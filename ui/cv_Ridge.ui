@@ -63,7 +63,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="n_alpha_label">
         <property name="text">
-         <string># of Alplhas</string>
+         <string># of Alphas</string>
         </property>
        </widget>
       </item>

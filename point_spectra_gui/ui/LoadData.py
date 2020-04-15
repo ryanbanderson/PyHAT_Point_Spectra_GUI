@@ -50,6 +50,7 @@ class Ui_loadData(object):
         self.newFilePushButton.setText(("..."))
         self.dataSetNameLabel.setText(("Data Set Name"))
         self.dataSetNameLineEdit.setToolTip(("<html><head/><body><p>Give your dataset a name</p></body></html>"))
+        self.dataSetNameLineEdit.setText(("Data"))
 
 
 if __name__ == "__main__":

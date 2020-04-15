@@ -32,8 +32,7 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, M
                   'fit_intercept': fit_intercept_items,
                   'normalize': normalize_items,
                   'precompute': ['auto']}
-        modelkey = str(params)
-        return params, modelkey
+        return params
 
 
 if __name__ == "__main__":

@@ -40,7 +40,6 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
         alphas = np.logspace(np.log10(self.minalpha_spin.value()), np.log10(self.maxalpha_spin.value()),
                              num=self.nalpha_spin.value())
         params = {
-            'alpha': alphas,
             'l1_ratio': [float(i) for i in self.enl1_ratioLineEdit.text().split(',')],
             'fit_intercept': fit_intercept_items,
             'max_iter': [int(i) for i in self.enmax_iterLineEdit.text().split(',')],
@@ -50,8 +49,7 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
             'positive': positive_items,
             'selection': ['random']}
 
-        modelkey = str(params)
-        return params, modelkey
+        return params, list(alphas)
 
 
 if __name__ == "__main__":

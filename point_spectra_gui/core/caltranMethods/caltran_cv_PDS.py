@@ -21,7 +21,7 @@ class Ui_Form(Ui_Form, Modules):
         winsize_max = self.winsize_max_spinBox.value()
         window_sizes = list(range(winsize_min,winsize_max+2,2))
 
-        params = {'method':['PDS - Piecewise Direct Standardization'],
+        params = {'method':['PDS - Piecewise DS'],
                   'win_size': window_sizes,
                   'pls': [False]}
 

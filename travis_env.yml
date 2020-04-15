@@ -8,5 +8,5 @@ dependencies:
  - matplotlib
  - scikit-learn
  - pip:
-   - libpysat
+   - libpyhat
    - qtmodern

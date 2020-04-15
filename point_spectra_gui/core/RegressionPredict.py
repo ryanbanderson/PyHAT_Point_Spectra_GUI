@@ -5,17 +5,12 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionPredict(Ui_Form, Modules):
-    count = -1
 
     def __init__(self):
-        RegressionPredict.count += 1
-        self.curr_count = RegressionPredict.count
+        self.predict_count = len(self.predictkeys)
 
     def delete(self):
-        try:
-            RegressionPredict.count -= 1
-        except IndexError:
-            pass
+        pass
 
     def setupUi(self, Form):
         super().setupUi(Form)
@@ -28,17 +23,6 @@ class RegressionPredict(Ui_Form, Modules):
         self.changeComboListVars(self.chooseDataListWidget, self.datakeys)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
         self.chooseDataListWidget.itemSelectionChanged.connect(lambda: self.setComboBox(self.chooseModelComboBox, self.modelkeys))
-
-    def setup(self):
-        self.connectWidgets(setup=True)
-        datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
-        modelkey = self.chooseModelComboBox.currentText()
-        try:
-            for datakey in datakeys:
-                self.list_amend(self.predictkeys, self.curr_count, modelkey + ' - ' + datakey + ' - Predict')
-                self.data[datakey].df['predict',modelkey + ' - ' + datakey + ' - Predict'] = 99999
-        except Exception as e:
-            print(e)
 
     def run(self):
         datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]

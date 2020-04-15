@@ -21,7 +21,7 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
               colorval = None, ytitle='Prediction (wt.%)', title=None,
               lbl='', one_to_one=False, rmse=True, dpi=1000, color=None, annot_mask=None, cmap=None, colortitle='',
               loadfig=None, masklabel='', marker='o', linestyle='None', hline=None, hlinelabel=None, hlinestyle='--',
-              yzero=False, linewidth=1.0, vlines=None):
+              yzero=False, linewidth=0.2, vlines=None):
     if loadfig is not None:
         fig = loadfig
         axes = fig.gca()
@@ -67,7 +67,8 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
 
     if colorvar != 'None':
         try:
-            mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black')
+            mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black',
+                                    marker = marker)
         except:
             pass
             # try:
@@ -87,7 +88,7 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
             # TODO: handle any top-level label for colorval and clean up these nested try/excepts
         fig.colorbar(mappable, label=colorvar, ax=axes)
     elif colorvar == 'None':
-        axes.plot(x, y, linewidth=0.2, markeredgecolor='Black', markeredgewidth=0.25, label=lbl, color = color, linestyle=linestyle, marker=marker)
+        axes.plot(x, y, markeredgecolor='Black', markeredgewidth=0.25, label=lbl, color = color, linestyle=linestyle, marker=marker,linewidth=linewidth)
         if lbl != '':
             axes.legend(loc='best', fontsize=8, scatterpoints=1, numpoints=1)
 
@@ -100,32 +101,35 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
     return fig
 
 
-def pca_ica_plot(data, x_component, y_component, colorvar=None, cmap='viridis', method='PCA', figpath=None,
+def pca_ica_plot(data, x_component, y_component, dimred_obj, colorvar=None, cmap='viridis', method='PCA', figpath=None,
                  figfile=None):
     cmaps()
     x_label = ''
     y_label = ''
     x = [data.df[(method, x_component)]]
     y = [data.df[(method, y_component)]]
+    xcomp_num = x_component.split('-')[-1]
+    ycomp_num = y_component.split('-')[-1]
+    pass
     if method == 'PCA':
-        x_loading = data.dim_red.components_[int(x_component) - 1, :]
-        y_loading = data.dim_red.components_[int(y_component) - 1, :]
+        x_loading = dimred_obj.components_[int(xcomp_num) - 1, :]
+        y_loading = dimred_obj.components_[int(ycomp_num) - 1, :]
 
-        x_variance = data.dim_red.explained_variance_ratio_[int(x_component) - 1] * 100
-        y_variance = data.dim_red.explained_variance_ratio_[int(y_component) - 1] * 100
-        x_label = 'PC ' + str(x_component) + ' (' + str(round(x_variance, 1)) + r'%)'
-        y_label = 'PC ' + str(y_component) + ' (' + str(round(y_variance, 1)) + r'%)'
+        x_variance = dimred_obj.explained_variance_ratio_[int(xcomp_num) - 1] * 100
+        y_variance = dimred_obj.explained_variance_ratio_[int(ycomp_num) - 1] * 100
+        x_label = 'PC ' + str(xcomp_num) + ' (' + str(round(x_variance, 1)) + r'%)'
+        y_label = 'PC ' + str(ycomp_num) + ' (' + str(round(y_variance, 1)) + r'%)'
     if method == 'FastICA':
-        x_loading = data.dim_red.components_[int(x_component) - 1, :]
-        y_loading = data.dim_red.components_[int(y_component) - 1, :]
-        x_label = 'Source ' + str(x_component)
-        y_label = 'Source ' + str(y_component)
+        x_loading = dimred_obj.components_[int(xcomp_num) - 1, :]
+        y_loading = dimred_obj.components_[int(ycomp_num) - 1, :]
+        x_label = 'Source ' + str(xcomp_num)
+        y_label = 'Source ' + str(ycomp_num)
 
     if method == 'JADE-ICA':
-        x_loading = data.dim_red.ica_jade_loadings[int(x_component) - 1, :].T
-        y_loading = data.dim_red.ica_jade_loadings[int(y_component) - 1, :].T
-        x_label = 'Source ' + str(x_component)
-        y_label = 'Source ' + str(y_component)
+        x_loading = dimred_obj.ica_jade_loadings[int(xcomp_num) - 1, :].T
+        y_loading = dimred_obj.ica_jade_loadings[int(ycomp_num) - 1, :].T
+        x_label = 'Source ' + str(xcomp_num)
+        y_label = 'Source ' + str(ycomp_num)
 
     # set up the subplots
     fig = plot.figure()
@@ -137,25 +141,16 @@ def pca_ica_plot(data, x_component, y_component, colorvar=None, cmap='viridis', 
     ax1.set_xlabel(x_label)
     ax1.set_ylabel(y_label)
 
+    pass
     if colorvar:
-        try:
-            mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('comp', colorvar)], cmap=cmap, linewidth=0.2, edgecolor='Black')
-        except:
-            try:
-                mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('meta', colorvar)], cmap=cmap, linewidth=0.2, edgecolor='Black')
-            except:
-                try:
-                    mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('K-Means', colorvar)], cmap=cmap,
+        for label in data.df.columns.levels[0]:
+            if (label,colorvar) in data.df:
+                mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[(label, colorvar)], cmap=cmap,
                                        linewidth=0.2, edgecolor='Black')
-                except:
-                    try:
-                        mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('Spectral', colorvar)],
-                                               cmap=cmap,
-                                               linewidth=0.2, edgecolor='Black')
-                    except:
-                        pass
-            # TODO: handle any top-level label for colorval and clean up these nested try/excepts
-        fig.colorbar(mappable, label=colorvar, ax=ax1)
+                fig.colorbar(mappable, label=colorvar, ax=ax1)
+            else:
+                pass
+
     else:
         ax1.scatter(x, y, linewidth=0.2, edgecolor='Black')
 
@@ -172,10 +167,6 @@ def pca_ica_plot(data, x_component, y_component, colorvar=None, cmap='viridis', 
     ax3.set_ylabel(y_label)
 
     fig.subplots_adjust(hspace=0)
-
-    #save the loadings to a file
-    outloadings = np.array([wvls, x_loading, y_loading])
-
 
     if figpath and figfile:
         fig.savefig(figpath + '\\' + figfile, dpi=1000)

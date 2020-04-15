@@ -23,30 +23,6 @@ def CCAM_CSV(input_data, ave=True):
     df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
     df.set_index(['wave'], inplace=True)  # use wavelengths as indices
     metadata = pd.read_csv(input_data, sep='=', nrows=header_rows, comment=',', engine='c', index_col=0, header=None)
-    #
-    # #These try/excepts are clunky but get the job done
-    # try:
-    #     df = pd.read_csv(input_data, header=14, engine='c')
-    #     cols = list(df.columns.values)
-    #     df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
-    #     df.set_index(['wave'], inplace=True)  # use wavelengths as indices
-    #     # read the file header and put information into the dataframe as new columns
-    #     metadata = pd.read_csv(input_data, sep='=', nrows=14, comment=',', engine='c', index_col=0, header=None)
-    # except:
-    #     try:  # handle files with an extra header row containing temperature
-    #         df = pd.read_csv(input_data, header=15, engine='c')
-    #         cols = list(df.columns.values)
-    #         df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
-    #         df.set_index(['wave'], inplace=True)  # use wavelengths as indices
-    #         # read the file header and put information into the dataframe as new columns
-    #         metadata = pd.read_csv(input_data, sep='=', nrows=15, comment=',', engine='c', index_col=0, header=None)
-    #     except:  # handle files with an extra header row containing temperature and target name
-    #         df = pd.read_csv(input_data, header=16, engine='c')
-    #         cols = list(df.columns.values)
-    #         df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
-    #         df.set_index(['wave'], inplace=True)  # use wavelengths as indices
-    #         # read the file header and put information into the dataframe as new columns
-    #         metadata = pd.read_csv(input_data, sep='=', nrows=16, comment=',', engine='c', index_col=0, header=None)
 
     if ave:
         df = pd.DataFrame(df['mean'])
@@ -144,9 +120,10 @@ def CCAM_SAV(input_data, ave=True):
                                                         'Pversion']+metalist_keep))
     try:
        metadata = pd.DataFrame(metadata, columns=pd.MultiIndex.from_tuples(metadata_cols), index=df.index)
+       df = pd.concat([metadata, df], axis=1)
     except:
         pass
-    df = pd.concat([metadata, df], axis=1)
+
     if ave == True:
         df = df.loc['average']
         df = df.to_frame().T
@@ -155,7 +132,7 @@ def CCAM_SAV(input_data, ave=True):
 
     return df
 
-def ccam_batch(directory, searchstring='*.csv', to_csv=None, lookupfile=None, ave=True, progressbar=None, left_on = 'sclock', right_on='Spacecraft Clock',versioncheck=True):
+def ccam_batch(directory, searchstring='*.csv', to_csv=None, lookupfile=None, ave=True, left_on = 'sclock', right_on='Spacecraft Clock',versioncheck=True):
     # Determine if the file is a .csv or .SAV
     if 'sav' in searchstring.lower():
         is_sav = True
@@ -185,20 +162,15 @@ def ccam_batch(directory, searchstring='*.csv', to_csv=None, lookupfile=None, av
             filelist_new = np.append(filelist_new, filelist[match][maxP])  # keep only the file with thei highest version
 
         filelist = filelist_new
-    # Should add a progress bar for importing large numbers of files
-    dt = []
-    if progressbar:
-        from PyQt5 import QtCore  # only rely on PyQt5 if a progressbar object has been passed
-        progressbar.setWindowTitle('ChemCam data progress')
-        progressbar.setRange(0, filelist.size)
-        progressbar.show()
+
     filecount = 0
     workinglist = []
     subcount = 0
 
+
     for i, file in enumerate(filelist):
         filecount = filecount + 1
-        print('File #'+str(filecount))
+        print('File #'+str(filecount)+' of '+str(len(filelist)))
         print(file)
         if is_sav:
             tmp = CCAM_SAV(file, ave=ave)
@@ -222,9 +194,7 @@ def ccam_batch(directory, searchstring='*.csv', to_csv=None, lookupfile=None, av
             subcount = filecount
             del combined
             gc.collect()
-        if progressbar:
-            progressbar.setValue(filecount)
-            QtCore.QCoreApplication.processEvents()
+
         pass
     if ave == False:
         for f in workinglist:

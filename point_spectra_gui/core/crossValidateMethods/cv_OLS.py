@@ -24,8 +24,8 @@ class Ui_Form(Ui_Form, LinearRegression, Modules):
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         params = {'fit_intercept': fit_intercept_items}
-        modelkey = str(params)
-        return params, modelkey
+
+        return params
 
 
 if __name__ == "__main__":

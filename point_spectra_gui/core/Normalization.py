@@ -15,7 +15,7 @@ class norm_range:
         self.hidden = hidden
         self.hidden.setHidden(True)
         self.hidden.stateChanged.connect(self.Hidden)
-        self.setLimits(0.0, 9999999.0)
+
 
     def Hidden(self):
         if self.hidden.isChecked():
@@ -184,11 +184,12 @@ class Normalization(Ui_Form, Modules):
                 range_vals.append([range_min, range_max])
                 pass
         try:
-            col_var = self.varToNormalizeListWidget.currentItem().text()
+            col_var = self.varToNormalizeListWidget.selectedItems()[0].text()
             self.data[datakey].norm(range_vals, col_var)
             print("Normalization has been applied to the ranges: " + str(range_vals))
             print("{}".format(range_vals))
         except Exception as e:
+            print('Normalization NOT applied!')
             print(str(e) + ": Did you remember to select a variable?")
 
     def xvar_choices(self):

@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from pandas.core.common import array_equivalent
 
-from libpysat.fileio.utils import file_search
+from libpyhat.fileio.utils import file_search
 
 
 # This function reads the lookup tables used to expand metadata from the file names

@@ -80,8 +80,8 @@ target/
 *.wrf
 *.dat
 
-# Pysat
-pysat/
+# pyhat
+pyhat/
 auto_gitter.bat
 *.ini
 *.inf

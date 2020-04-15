@@ -38,22 +38,22 @@ class Ui_Form(Ui_Form, Lasso, Modules):
         positive_items = [i.text() == 'True' for i in self.forcePositive_list.selectedItems()]
         alphas = np.logspace(np.log10(self.minalpha_spin.value()), np.log10(self.maxalpha_spin.value()),
                              num=self.nalphas_spin.value())
-        params = {'alpha': list(alphas),
+        params = {
                   'fit_intercept': fit_intercept_items,
                   'max_iter': [int(i) for i in self.maxNumOfIterationsLineEdit.text().split(',')],
                   'tol': [float(i) for i in self.toleranceLineEdit.text().split(',')],
                   'precompute': [True],
                   'copy_X': [True],
                   'positive': positive_items,
-                  'selection': ['random'],
+                  'selection': ['random']
                   }
-        keyparams = {}  # params.pop('alpha')
-        keyparams['alpha_min'] = self.minalpha_spin.value()
-        keyparams['alpha_max'] = self.maxalpha_spin.value()
-        keyparams['n_alpha'] = self.nalphas_spin.value()
-
-        modelkey = str(keyparams)
-        return params, modelkey
+        # keyparams = {}  # params.pop('alpha')
+        # keyparams['alpha_min'] = self.minalpha_spin.value()
+        # keyparams['alpha_max'] = self.maxalpha_spin.value()
+        # keyparams['n_alpha'] = self.nalphas_spin.value()
+        #
+        # modelkey = str(keyparams)
+        return params, list(alphas)
 
 
 if __name__ == "__main__":

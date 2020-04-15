@@ -162,14 +162,13 @@ setup(
     name=PACKAGE_NAME,
     version=__version__,
     description="A PDART-funded effort to design a spectral analysis tool for LIBS (and other) spectra",
-    url="https://github.com/USGS-Astrogeology/PySAT",
+    url="https://github.com/USGS-Astrogeology/PyHAT",
     author="Ryan B. Anderson, Nicholas Finch",
     author_email='rbanderson@usgs.gov, ngf4@nau.edu',
     license="Public Domain",
-    keywords='PYSAT LIBS PDART Point Spectra',
+    keywords='PYHAT LIBS PDART Point Spectra',
     package_dir={'point_spectra_gui': 'point_spectra_gui'},
     packages=find_packages(),
-    install_requires =['sklearn', 'qtmodern', 'libpysat'],
     entry_points={
         'gui_scripts': [
             'point_spectra_gui=point_spectra_gui.core.MainWindow:main'
@@ -182,8 +181,8 @@ setup(
     },
     classifiers=[
         #'License :: Unlicense',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: MacOS',
         'Operating System :: POSIX :: Linux',

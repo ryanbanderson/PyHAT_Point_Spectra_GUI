@@ -115,12 +115,52 @@
             </item>
             <item>
              <property name="text">
-              <string>PDS - Piecewise Direct Standardization</string>
+              <string>Ratio</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Ratio</string>
+              <string>DS - Direct Standardization</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>PDS - Piecewise DS</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Forward Backward DS</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Incremental Proximal Descent DS</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>LASSO DS</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>CCA - Canonical Correlation Analysis</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>New CCA</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Ridge DS</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Sparse Low Rank DS</string>
              </property>
             </item>
            </widget>

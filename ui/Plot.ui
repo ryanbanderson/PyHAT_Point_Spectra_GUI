@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>554</width>
-    <height>518</height>
+    <height>592</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,6 +28,40 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QGridLayout" name="topLayout">
+        <item row="1" column="1">
+         <widget class="QComboBox" name="figname_comboBox"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="newfig_label">
+          <property name="text">
+           <string>New figure name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="plotTitleLineEdit"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="figureNameLabel">
+          <property name="text">
+           <string>Figure name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="plotTitleLabel">
+          <property name="text">
+           <string>Plot Title</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="newfig_lineEdit">
+          <property name="text">
+           <string>Fig 1</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="chooseDataLabel">
           <property name="text">
@@ -42,25 +76,15 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="figureNameLabel">
-          <property name="text">
-           <string>Figure name</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="figureNameLineEdit"/>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="plotTitleLabel">
-          <property name="text">
-           <string>Plot Title</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="plotTitleLineEdit"/>
+         <widget class="QCheckBox" name="newfig_checkBox">
+          <property name="text">
+           <string>New Figure</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -86,7 +110,14 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="chooseXVariableComboBox"/>
+           <widget class="QComboBox" name="chooseXVariableComboBox">
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>25</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="xTitleLabel">
@@ -115,10 +146,10 @@
           <item row="2" column="1">
            <widget class="QDoubleSpinBox" name="xMinDoubleSpinBox">
             <property name="minimum">
-             <double>-999999999.000000000000000</double>
+             <double>-100000000000000007629769841091887003294964970946560.000000000000000</double>
             </property>
             <property name="maximum">
-             <double>999999999.000000000000000</double>
+             <double>100000000000000007629769841091887003294964970946560.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -144,7 +175,14 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="chooseYVariableComboBox"/>
+           <widget class="QComboBox" name="chooseYVariableComboBox">
+            <property name="maximumSize">
+             <size>
+              <width>400</width>
+              <height>25</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="yTitleLabel">
@@ -173,15 +211,22 @@
           <item row="2" column="1">
            <widget class="QDoubleSpinBox" name="yMinDoubleSpinBox">
             <property name="minimum">
-             <double>-999999999.000000000000000</double>
+             <double>-99999999999999996863366107917975552.000000000000000</double>
             </property>
             <property name="maximum">
-             <double>999999999.000000000000000</double>
+             <double>10000000000000000303786028427003666890752.000000000000000</double>
             </property>
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QDoubleSpinBox" name="yMaxDoubleSpinBox"/>
+           <widget class="QDoubleSpinBox" name="yMaxDoubleSpinBox">
+            <property name="minimum">
+             <double>-9999999999999999931398190359470212947659194368.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>999999999999999939709166371603178586112.000000000000000</double>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -196,15 +241,28 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="2">
+         <widget class="QComboBox" name="comboBoxcolorvar">
+          <item>
+           <property name="text">
+            <string>None</string>
+           </property>
+          </item>
+         </widget>
+        </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Choose variable to color code points (optional)</string>
+           <string>Choose variable to color code points</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QComboBox" name="comboBoxcolorvar"/>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="colorcode_checkBox">
+          <property name="text">
+           <string>color code</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -227,7 +285,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="alphaLabel">
           <property name="text">
-           <string>Alpha</string>
+           <string>Opacity (%)</string>
           </property>
          </widget>
         </item>
@@ -239,7 +297,17 @@
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QDoubleSpinBox" name="alphaDoubleSpinBox"/>
+         <widget class="QDoubleSpinBox" name="alphaDoubleSpinBox">
+          <property name="decimals">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>25.000000000000000</double>
+          </property>
+         </widget>
         </item>
         <item row="6" column="0">
          <widget class="QLabel" name="plotFilenameLabel">
@@ -249,12 +317,33 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QComboBox" name="lineComboBox"/>
+         <widget class="QComboBox" name="lineComboBox">
+          <item>
+           <property name="text">
+            <string>No Line</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Line</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dashed Line</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dotten Line</string>
+           </property>
+          </item>
+         </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="lineLabel">
           <property name="text">
-           <string>Line</string>
+           <string>Line style</string>
           </property>
          </widget>
         </item>
@@ -266,7 +355,43 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QComboBox" name="colorComboBox"/>
+         <widget class="QComboBox" name="colorComboBox">
+          <item>
+           <property name="text">
+            <string>Red</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Green</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Blue</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cyan</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Yellow</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Magenta</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Black</string>
+           </property>
+          </item>
+         </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="colorLabel">
@@ -276,7 +401,48 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QComboBox" name="markerComboBox"/>
+         <widget class="QComboBox" name="markerComboBox">
+          <item>
+           <property name="text">
+            <string>Circles</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Squares</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Diamonds</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Triangle Up</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Triangle Down</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Triangle Left</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Triangle Right</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>None</string>
+           </property>
+          </item>
+         </widget>
         </item>
         <item row="6" column="2">
          <widget class="QPushButton" name="plotFilenamePushButton">
@@ -310,7 +476,6 @@
  </widget>
  <tabstops>
   <tabstop>chooseDataComboBox</tabstop>
-  <tabstop>figureNameLineEdit</tabstop>
   <tabstop>plotTitleLineEdit</tabstop>
   <tabstop>chooseXVariableComboBox</tabstop>
   <tabstop>xTitleLineEdit</tabstop>

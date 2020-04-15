@@ -40,8 +40,8 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
         params = {'alpha': alphas,
                   'fit_intercept': fit_intercept_items,
                   'normalize': normalize_items}
-        modelkey = str(params)
-        return params, modelkey
+
+        return params
 
 
 if __name__ == "__main__":

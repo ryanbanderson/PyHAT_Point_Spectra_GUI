@@ -23,8 +23,10 @@ class Modules:
     """
     data = {}  # initialize with an empty dict to hold data frames
     datakeys = []  # hold all the specific key for a specific data frame
+    data_count = -1
     modelkeys = []
     models = {}  # For regression training
+    model_count = -1
     predictkeys = []
     outpath = './'  # Default outpath; can be changed with OutputFolder.py
     figs = {}
@@ -32,6 +34,9 @@ class Modules:
     model_xvars = {}
     model_yvars = {}
     parent = []
+    dimred = {} #for storing dimensionality reduction models
+    dimredkeys = []
+
 
     def __init__(self):
         self.qtickle = Qtickle.Qtickle(self)
@@ -242,7 +247,7 @@ class Modules:
         obj.clear()
         for i in newchoices:
             if isinstance(i, tuple):
-                obj.addItem(i[1])
+                obj.addItem(str(i[1]))
             elif isinstance(i, str):
                 obj.addItem(i)
         if isinstance(obj,QComboBox):

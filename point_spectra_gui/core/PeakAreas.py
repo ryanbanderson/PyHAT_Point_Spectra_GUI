@@ -19,9 +19,6 @@ class PeakAreas(Ui_Form, Modules):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.peakMinimaLineEdit))
 
-    def setup(self):
-        datakey = self.chooseDataComboBox.currentText()
-        self.data[datakey].df[('peak_area',99999)] = 99999  #create a dummy column so that "peak_Area" shows up as an option in later modules
 
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
@@ -32,14 +29,15 @@ class PeakAreas(Ui_Form, Modules):
         try:
             self.data[datakey].peak_area(peaks_mins_file)
             print("Peak Areas Calculated")
-            output = pd.DataFrame(columns = ['peaks','mins'])
-            output['mins'] = self.data[datakey].mins
-            try:
-                output['peaks'] = np.append(self.data[datakey].peaks,np.nan)
-            except:
-                output['peaks'] = self.data[datakey].peaks
+            output = pd.DataFrame(columns = ['type','wvl'])
+            types = np.hstack((np.repeat('peak',len(self.data[datakey].peaks)), np.repeat('min',len(self.data[datakey].mins))))
+            wvls = np.hstack((self.data[datakey].peaks,self.data[datakey].mins))
+            output['type']=types
+            output['wvl']=wvls
+            output.sort_values('wvl',axis=0,inplace=True)
+            output.reset_index(inplace=True,drop=True)
             output.to_csv(self.outpath+'/peaks_mins.csv')
-            print('Peaks and mins saved to '+self.outpath+'/peaks_mins.csv')
+            print('Peaks and mins saved to '+self.outpath+'peaks_mins.csv')
 
         except Exception as e:
              print(e)

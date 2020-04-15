@@ -12,21 +12,19 @@ class Ui_Form(Ui_Form, Modules):
         Modules.setupUi(self, Form)
 
     def get_widget(self):
-        return self.groupbox
+        return self.groupBox
 
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
         br = PolyFit()
-        self.orderSpinBox.setValue(br.poly_order_)
-        self.numOfStandardDeviationsSpinBox.setValue(br.stdv_)
-        self.maxNumOfIterationsSpinBox.setValue(br.max_iter_)
+        self.orderSpinBox.setValue(br.poly_order)
+        self.numOfStandardDeviationsSpinBox.setValue(br.num_stdv)
 
     def run(self):
-        methodParameters = {'poly_order_': self.orderSpinBox.value(),
-                            'stdv_': self.numOfStandardDeviationsSpinBox.value(),
-                            'max_iter_': self.maxNumOfIterationsSpinBox.value()}
+        methodParameters = {'poly_order': self.orderSpinBox.value(),
+                            'num_stdv': self.numOfStandardDeviationsSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, PolyFit())
 
 

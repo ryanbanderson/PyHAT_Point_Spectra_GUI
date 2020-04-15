@@ -7,6 +7,7 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class SplitDataset(Ui_Form, Modules):
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -42,13 +43,11 @@ class SplitDataset(Ui_Form, Modules):
         for i in unique_values:
             new_datakey = datakey + ' - ' + str(i)
             if not new_datakey in self.datakeys:
-                self.datakeys.append(new_datakey)
+                Modules.data_count += 1
+                self.list_amend(self.datakeys, Modules.data_count, new_datakey)
                 if setup == False:
-                    self.data[new_datakey] = spectral_data(self.data[datakey].df.ix[coldata == i])
+                    self.data[new_datakey] = spectral_data(self.data[datakey].df.iloc[coldata == i])
 
-    def setup(self):
-        self.connectWidgets(setup=True)
-        self.update_datakeys(setup=True)
 
     def run(self):
         self.update_datakeys(setup=False)

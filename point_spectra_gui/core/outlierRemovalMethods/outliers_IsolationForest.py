@@ -18,8 +18,14 @@ class Ui_Form(Ui_Form, IsolationForest, Modules):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
-        self.n_est_spin.setValue(self.n_estimators)
-        self.prop_outliers_spin.setValue(self.contamination)
+        try:
+            self.n_est_spin.setValue(self.n_estimators)
+        except:
+            pass
+        try:
+            self.prop_outliers_spin.setValue(self.contamination)
+        except:
+            pass
 
     def run(self):
         params = {

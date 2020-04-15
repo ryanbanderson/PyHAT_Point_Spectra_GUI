@@ -55,7 +55,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
-        self.formGroupBox.setTitle(("PDS - Piecewise Direct Standardization"))
+        self.formGroupBox.setTitle(("PDS using Partial Least Squares"))
         self.winsize_label.setText(("Window sizes from"))
         self.label.setText(("to"))
         self.pls_nc_label.setText(("# of components"))

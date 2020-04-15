@@ -35,6 +35,5 @@ from point_spectra_gui.core import LocalRegression
 from point_spectra_gui.core import ShiftWvl
 from point_spectra_gui.core import CalibrationTransfer
 from point_spectra_gui.core import CalibrationTransferCV
-from point_spectra_gui.core import SaveRegressionModel
-from point_spectra_gui.core import RestoreRegressionModel
+from point_spectra_gui.core import Standardize
 from point_spectra_gui.core.regressionMethods import *

@@ -16,58 +16,92 @@ class PlotSpectra(Ui_Form, Modules):
         return self.groupBox
 
     def connectWidgets(self):
-        self.colorComboBox.addItem("Red")
-        self.colorComboBox.addItem("Green")
-        self.colorComboBox.addItem("Blue")
-        self.colorComboBox.addItem("Cyan")
-        self.colorComboBox.addItem("Yellow")
-        self.colorComboBox.addItem("Magenta")
-        self.colorComboBox.addItem("Black")
-        self.lineComboBox.addItem("Line")
-        self.lineComboBox.addItem("Dashed Line")
-        self.lineComboBox.addItem("Dotted Line")
-        self.lineComboBox.addItem("Points (No Line)")
+        self.newfig_checkBox.setHidden(True)
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.lineWidthDoubleSpinBox.setRange(0, 10)
-        self.lineWidthDoubleSpinBox.setValue(0.5)
-        self.lineWidthDoubleSpinBox.setSingleStep(0.05)
-        self.alphaDoubleSpinBox.setRange(0, 1)
-        self.alphaDoubleSpinBox.setValue(1.0)
-        self.alphaDoubleSpinBox.setSingleStep(0.1)
-        self.maxDoubleSpinBox.setMaximum(99999)
-        self.maxDoubleSpinBox.setMinimum(0)
-        self.minDoubleSpinBox.setMaximum(99999)
-        self.minDoubleSpinBox.setMinimum(0)
         self.pushButton.clicked.connect(self.on_pushButton_clicked)
-        try:
-            self.setComboBox(self.chooseDataComboBox, self.datakeys)
-            self.setListWidget(self.xVariableListWidget, self.xvar_choices())
-            self.plot_spect_change_vars(self.chooseColumnComboBox)
-            self.plot_spect_update_list(self.chooseRowsListWidget)
-        except Exception as e:
-            print("Could not process lists: {}".format(e))
+        fig_choices = self.figname
+        fig_choices2 = ['New Figure']
+        for choice in fig_choices:
+            fig_choices2.append(choice)
+        fig_choices = fig_choices2
+        self.setComboBox(self.figname_comboBox, fig_choices)
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)
+        self.setListWidget(self.xVariableListWidget, self.xvar_choices())
+        self.plot_spect_change_vars(self.chooseColumnComboBox)
+        self.plot_spect_update_list(self.chooseRowsListWidget)
 
         self.chooseDataComboBox.activated[int].connect(lambda: self.plot_spect_change_vars(self.chooseColumnComboBox))
         self.chooseColumnComboBox.activated[int].connect(lambda: self.plot_spect_update_list(self.chooseRowsListWidget))
         self.chooseDataComboBox.activated[int].connect(lambda: self.plot_spect_update_list(self.chooseRowsListWidget))
+        self.figname_comboBox.activated[int].connect(lambda: self.newfig_check())
+        self.newfig_checkBox.stateChanged.connect(lambda: self.fig_options())
+
+
+        self.xVariableListWidget.itemSelectionChanged.connect(
+            lambda: self.set_spect_minmax())
+        self.chooseRowsListWidget.itemSelectionChanged.connect(
+            lambda: self.set_spect_minmax(set_x=False))
+
+
+        self.xVariableListWidget.itemSelectionChanged.connect(self.set_xTitle)
+        
+    def set_xTitle(self):
         try:
-            self.xVariableListWidget.itemSelectionChanged.connect(
-                lambda: self.set_spect_minmax(self.minDoubleSpinBox, self.maxDoubleSpinBox,
-                                              self.xVariableListWidget.selectedItems()[0].text()))
+            self.xtitle_lineEdit.setText(self.xVariableListWidget.currentItem().text())
         except:
             pass
 
+
+    def newfig_check(self):
+        if self.figname_comboBox.currentText() == 'New Figure':
+            self.newfig_checkBox.setChecked(True)
+        else:
+            self.newfig_checkBox.setChecked(False)
+
+    def fig_options(self):
+        if self.newfig_checkBox.isChecked():
+            self.xminLabel.setHidden(False)
+            self.xminDoubleSpinBox.setHidden(False)
+            self.yminlabel.setHidden(False)
+            self.yminSpinBox.setHidden(False)
+            self.xtitle_label.setHidden(False)
+            self.xtitle_lineEdit.setHidden(False)
+            self.ymaxlabel.setHidden(False)
+            self.ymaxSpinBox.setHidden(False)
+            self.xmaxLabel.setHidden(False)
+            self.xmaxDoubleSpinBox.setHidden(False)
+            self.ytitle_label.setHidden(False)
+            self.ytitle_lineEdit.setHidden(False)
+            self.plotTitleLabel.setHidden(False)
+            self.plotTitleLineEdit.setHidden(False)
+            self.newfig_lineEdit.setHidden(False)
+            self.newfig_label.setHidden(False)
+        else:
+            self.xminLabel.setHidden(True)
+            self.xminDoubleSpinBox.setHidden(True)
+            self.yminlabel.setHidden(True)
+            self.yminSpinBox.setHidden(True)
+            self.xtitle_label.setHidden(True)
+            self.xtitle_lineEdit.setHidden(True)
+            self.ymaxlabel.setHidden(True)
+            self.ymaxSpinBox.setHidden(True)
+            self.xmaxLabel.setHidden(True)
+            self.xmaxDoubleSpinBox.setHidden(True)
+            self.ytitle_label.setHidden(True)
+            self.ytitle_lineEdit.setHidden(True)
+            self.plotTitleLabel.setHidden(True)
+            self.plotTitleLineEdit.setHidden(True)
+            self.newfig_lineEdit.setHidden(True)
+            self.newfig_label.setHidden(True)
+
     def run(self):
-        yrange = None
-        xtitle = 'Wavelength (nm)'
-        ytitle = None
-        lbl = None
         one_to_one = False
         dpi = 1000
         annot_mask = None
         cmap = None
         colortitle = ''
         marker = None
+        loadfig = None
 
         datakey = self.chooseDataComboBox.currentText()
         try:
@@ -79,12 +113,24 @@ class PlotSpectra(Ui_Form, Modules):
             row = self.chooseRowsListWidget.selectedItems()[0].text()
         except:
             row = 'None Selected'
-        figname = self.figureNameLineEdit.text()
+
+        if self.figname_comboBox.currentText() == 'New Figure':
+            figname = self.newfig_lineEdit.text()
+        else:
+            figname = self.figname_comboBox.currentText()
+        if not figname in self.figname:
+            self.figname.append(figname)
+        if figname in self.figs:
+            loadfig = self.figs[figname]
+
+
         title = self.plotTitleLineEdit.text()
+        xtitle = self.xtitle_lineEdit.text()
+        ytitle = self.ytitle_lineEdit.text()
         figfile = self.plotFilenameLineEdit.text()
         figpath, figfile = '/'.join(figfile.split('/')[:-1]), figfile.split('/')[-1]
         color = self.colorComboBox.currentText()
-        alpha = self.alphaDoubleSpinBox.value()
+        alpha = self.alphaDoubleSpinBox.value()/100.0
         linewidth = self.lineWidthDoubleSpinBox.value()
 
         if color == 'Red':
@@ -116,9 +162,14 @@ class PlotSpectra(Ui_Form, Modules):
         else:
             linestyle = '-'
 
-        xmin = self.minDoubleSpinBox.value()
-        xmax = self.maxDoubleSpinBox.value()
+        xmin = self.xminDoubleSpinBox.value()
+        xmax = self.xmaxDoubleSpinBox.value()
         xrange = [xmin, xmax]
+
+        ymin = self.yminSpinBox.value()
+        ymax = self.ymaxSpinBox.value()
+        yrange = [ymin, ymax]
+
         self.data[datakey].enumerate_duplicates(col)
         data = self.data[datakey].df
 
@@ -126,18 +177,12 @@ class PlotSpectra(Ui_Form, Modules):
         x = np.array(data[xcol].columns.values)
         if linestyle == 'None':
             marker = 'o'
-        try:
-            loadfig = self.figs[figname]
-        except:
-            loadfig = None
 
         self.figs[figname] = make_plot(x, y, figpath=figpath, figfile=figfile, xrange=xrange, yrange=yrange,
-                                       xtitle=xtitle,
-                                       ytitle=ytitle, title=title,
-                                       lbl=lbl, one_to_one=one_to_one, dpi=dpi, color=color,
-                                       annot_mask=annot_mask, cmap=cmap,
+                                       xtitle=xtitle, ytitle=ytitle, title=title, one_to_one=one_to_one,
+                                       dpi=dpi, color=color, annot_mask=annot_mask, cmap=cmap,
                                        colortitle=colortitle, loadfig=loadfig, marker=marker, linestyle=linestyle,
-                                       linewidth=linewidth)
+                                       linewidth=linewidth,lbl = row)
 
     def xvar_choices(self):
         try:
@@ -153,22 +198,16 @@ class PlotSpectra(Ui_Form, Modules):
     def plot_spect_change_vars(self, obj):
         obj.clear()
         try:
-            self.vars_level0 = self.data[self.chooseDataComboBox.currentText()].df.columns.get_level_values(0)
-            self.vars_level1 = self.data[self.chooseDataComboBox.currentText()].df.columns.get_level_values(1)
-            self.vars_level1 = self.vars_level1[self.vars_level0 == 'meta']
-            self.vars_level0 = self.vars_level0[self.vars_level0 != 'meta']
+            vars_level0 = self.data[self.chooseDataComboBox.currentText()].df.columns.get_level_values(0)
+            vars_level1 = self.data[self.chooseDataComboBox.currentText()].df.columns.get_level_values(1)
+            vars_level1 = vars_level1[vars_level0 == 'meta']
 
             try:
-                self.vars_level0 = [i for i in self.vars_level0 if
+                vars_level1 = [i for i in vars_level1 if
                                     'Unnamed' not in str(i)]  # remove unnamed columns from choices
             except:
                 pass
-            try:
-                self.vars_level1 = [i for i in self.vars_level1 if
-                                    'Unnamed' not in str(i)]  # remove unnamed columns from choices
-            except:
-                pass
-            choices = self.vars_level1
+            choices = vars_level1
 
         except:
             try:
@@ -191,11 +230,22 @@ class PlotSpectra(Ui_Form, Modules):
         except:
             pass
 
-    def set_spect_minmax(self, objmin, objmax, var):
+    def set_spect_minmax(self,set_x=True, set_y=True):
+
         try:
-            vars = self.data[self.chooseDataComboBox.currentText()].df[var].columns.values
-            objmin.setValue(min(vars))
-            objmax.setValue(max(vars))
+            xvar = self.xVariableListWidget.selectedItems()[0].text()
+            datatemp = self.data[self.chooseDataComboBox.currentText()].df
+
+            if set_x:
+                vars = datatemp[xvar].columns.values
+                self.xminDoubleSpinBox.setValue(min(vars))
+                self.xmaxDoubleSpinBox.setValue(max(vars))
+            if set_y:
+                ycol = self.chooseColumnComboBox.currentText()
+                yrow = self.chooseRowsListWidget.selectedItems()[0].text()
+                vals = datatemp[datatemp[('meta',ycol)] == yrow][xvar]
+                self.yminSpinBox.setValue(vals.min(axis=1))
+                self.ymaxSpinBox.setValue(vals.max(axis=1))
         except:
             pass
 

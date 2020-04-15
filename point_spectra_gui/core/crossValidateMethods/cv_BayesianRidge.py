@@ -45,8 +45,8 @@ class Ui_Form(Ui_Form, BayesianRidge, Modules):
             'normalize': normalize_items,
             'copy_X': [True],
             'verbose': [True]}
-        modelkey = str(params)
-        return params, modelkey
+
+        return params
 
 
 if __name__ == "__main__":

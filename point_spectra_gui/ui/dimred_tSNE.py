@@ -24,6 +24,8 @@ class Ui_Form(object):
         self.nc_label.setObjectName("nc_label")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.nc_label)
         self.nc_spin = QtWidgets.QSpinBox(self.groupBox)
+        self.nc_spin.setMinimum(2)
+        self.nc_spin.setMaximum(3)
         self.nc_spin.setObjectName("nc_spin")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.nc_spin)
         self.learning_label = QtWidgets.QLabel(self.groupBox)

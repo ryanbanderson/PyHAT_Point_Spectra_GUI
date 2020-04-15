@@ -26,18 +26,21 @@ class SaveTrainedModel(Ui_Form, Modules):
 
     def run(self):
         modelkey = self.choosemodel_comboBox.currentText()
-        # add the data into a list [0. 1]
-        # list[0] will hold the dictionary data of the UI
-        # TODO Let the user decide what modelkey and model they want to save
-        # list[1] will hold the modelkeys
-        # list[2] will hold the self.models data
+        filename = self.saveLineEdit.text()
+
+        # list[0] holds the modelkey
+        # list[1] holds the model
+        # list[2] holds the xvar info
+        # list[3] holds the yvar info
+
         list = []
-        #list.append(json.dumps(MainWindow.getWidgetItems(self), indent=4))
         list.append(modelkey)
         list.append(self.models[modelkey])
+        list.append(self.model_xvars[modelkey])
+        list.append(self.model_yvars[modelkey])
         try:
-            print(self.filename)
-            with open(self.filename, 'wb') as fp:
+            print(filename)
+            with open(filename, 'wb') as fp:
                 pickle.dump(list, fp)
         except Exception as e:
             print("Could not save your trained model: ", e)

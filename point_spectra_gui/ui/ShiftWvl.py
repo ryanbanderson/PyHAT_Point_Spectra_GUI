@@ -14,18 +14,18 @@ class Ui_Form(object):
         self.groupLayout.setObjectName("groupLayout")
         self.gridLayout = QtWidgets.QGridLayout(self.groupLayout)
         self.gridLayout.setObjectName("gridLayout")
-        self.choosedata = QtWidgets.QComboBox(self.groupLayout)
-        self.choosedata.setObjectName("choosedata")
-        self.gridLayout.addWidget(self.choosedata, 0, 1, 1, 1)
         self.choosedata_label = QtWidgets.QLabel(self.groupLayout)
         self.choosedata_label.setObjectName("choosedata_label")
         self.gridLayout.addWidget(self.choosedata_label, 0, 0, 1, 1)
-        self.shifts_label = QtWidgets.QLabel(self.groupLayout)
-        self.shifts_label.setObjectName("shifts_label")
-        self.gridLayout.addWidget(self.shifts_label, 1, 0, 1, 1)
         self.shifts = QtWidgets.QLineEdit(self.groupLayout)
         self.shifts.setObjectName("shifts")
         self.gridLayout.addWidget(self.shifts, 1, 1, 1, 1)
+        self.shifts_label = QtWidgets.QLabel(self.groupLayout)
+        self.shifts_label.setObjectName("shifts_label")
+        self.gridLayout.addWidget(self.shifts_label, 1, 0, 1, 1)
+        self.choosedata = QtWidgets.QComboBox(self.groupLayout)
+        self.choosedata.setObjectName("choosedata")
+        self.gridLayout.addWidget(self.choosedata, 0, 1, 1, 1)
         self.verticalLayout_2.addWidget(self.groupLayout)
 
         self.retranslateUi(Form)
@@ -35,8 +35,11 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
         self.groupLayout.setTitle(("Wavelength Shift"))
-        self.choosedata_label.setText(("Choose data to shift"))
-        self.shifts_label.setText(("Shift amounts (comma separated)"))
+        self.choosedata_label.setText(("Choose data to shift:"))
+        self.shifts.setToolTip(("Comma separated, in same units as spectral channel labels"))
+        self.shifts.setText(("-0.3,-0.2,-0.1,0.1,0.2,0.3"))
+        self.shifts_label.setText(("Shift amounts: "))
+        self.choosedata.setToolTip(("Shifted spectra will be appended to the same data set"))
 
 
 if __name__ == "__main__":

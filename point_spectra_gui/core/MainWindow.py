@@ -1,21 +1,9 @@
 import multiprocessing as mp
 import os.path
-import pickle
 import sys
 import time
-import warnings
 import json
 
-from point_spectra_gui.util.themes import braceyourself, default
-
-try:
-    import qtmodern.styles
-
-    q = True
-except:
-    q = False
-    warnings.warn("You're missing the qtmodern package."
-                  "to install it use pip install qtmodern")
 import os
 import logging
 import platform
@@ -26,7 +14,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtCore import QSettings
 
 from point_spectra_gui import core, __version__
 from point_spectra_gui.ui.MainWindow import Ui_MainWindow
@@ -63,11 +50,11 @@ class TitleWindow:
     def setFileName(self, name):
         self.fileName = name
 
-    def setDebugName(self, bool):
-        if bool:
-            self.debugName = "Debug Mode"
-        else:
-            self.debugName = ''
+    # def setDebugName(self, bool):
+    #     if bool:
+    #         self.debugName = "Debug Mode"
+    #     else:
+    #         self.debugName = ''
 
     def display(self):
         if self.fileName == '' and self.debugName == '':
@@ -100,16 +87,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self._readAndApplyWindowAttributeSettings()
         self.menu_item_shortcuts()  # set up the shortcuts
         self.connectWidgets()
+        self.debug_mode()
+        self.addWidget(core.OutputFolder.OutputFolder)
 
-        # Check the mode for debugging
-        if self.settings.value("debug") == 'true':
-            self.debug_mode()
-        else:
-            self.normal_mode()
-
-        # Check the theme for the UI
-        if self.settings.value('theme') == 'braceyourself':
-            braceyourself(self.MainWindow)
+        #self.normal_mode()
 
     def normal_mode(self):
         """
@@ -145,45 +126,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         obj1.setDisabled(False)
         obj2.setDisabled(True)
         self.debug = debug
-        self.title.setDebugName(debug)
+       # self.title.setDebugName(debug)
         self.settings.setValue("debug", self.debug)
         self.MainWindow.setWindowTitle(self.title.display())
-
-    def theme(self, name):
-        """
-        We have 3 themes
-        each has a different situation
-                   __________________
-                 /__               __\ new()   Something to note:
-               v    \            v    \ new()  As you can see whenever moving into or out of
-        default     braceyourself    qtmodern  qtmodern we will have to start a new session
-               \___^             \___^ new()   default and braceyourself can simply change
-                \___________________/ new()    there styling on the spot
-
-        :param name:
-        :return:
-        """
-        settings = self.settings.value('theme')
-        if name == settings:
-            print("This is already your current theme")
-
-        elif name == 'qtmodern':  # User is entering into qtmodern
-            self.settings.setValue('theme', name)
-            self.new()
-
-        elif settings == 'qtmodern':  # User is leaving qtmodern
-            self.settings.setValue('theme', name)
-            self.new()
-
-        elif name == 'default':
-            self.settings.setValue('theme', name)
-            default(self.MainWindow)
-
-        elif name == 'braceyourself':
-            self.settings.setValue('theme', name)
-            braceyourself(self.MainWindow)
-        else:
-            print("Something went horribly wrong with your theme, try again?")
 
     def normalOutputWritten(self, text):
         """Append text to the QTextEdit."""
@@ -240,6 +185,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         # When the user deletes a module, we want to update insertion comboBox and deletion comboBox
         # When we insert we want to always keep the index, but update insertion and deletion comboBoxes
 
+
+        if len(self.widgetList)>1:
+            self.actionRestore_Workflow.setDisabled(True)
+
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
         self.actionCreate_New_Workflow.setShortcut("ctrl+N")
@@ -277,10 +226,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.LoadData.LoadData))
             self.actionSave_Current_Data.triggered.connect(
                 lambda: self.addWidget(core.WriteToCSV.WriteToCSV))
-            self.actionSave_Regression_Model.triggered.connect(
-                lambda: self.addWidget(core.SaveRegressionModel.SaveRegressionModel))
-            self.actionRestore_Regression_Model.triggered.connect(
-                lambda: self.addWidget(core.RestoreRegressionModel.RestoreRegressionModel))
+            self.actionStandardize_Data.triggered.connect(
+                lambda: self.addWidget(core.Standardize.Standardize))
             self.actionRename_Data.triggered.connect(
                 lambda: self.addWidget(core.RenameData.RenameData))
             self.actionApply_Mask.triggered.connect(
@@ -325,12 +272,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.SaveTrainedModel.SaveTrainedModel))
             self.actionWavelength_Shift.triggered.connect(
                 lambda: self.addWidget(core.ShiftWvl.ShiftWvl))
-            self.actionData_Box.triggered.connect(self.on_DataTable_clicked)
-            self.actionAbout.triggered.connect(self.on_About_clicked)
-            self.actionAbout_Qt.triggered.connect(self.on_AboutQt_clicked)
-            self.actionQtmodern.triggered.connect(lambda: self.theme('qtmodern'))
-            self.actionDefault.triggered.connect(lambda: self.theme('default'))
-            self.actionBrace_yourself.triggered.connect(lambda: self.theme('braceyourself'))
             self.actionCreate_New_Workflow.triggered.connect(self.new)
             self.actionSave_Current_Workflow.triggered.connect(self.on_save_clicked)
             self.actionRestore_Workflow.triggered.connect(self.on_restore_clicked)
@@ -340,11 +281,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.undoModulePushButton.clicked.connect(self.on_Rerun_Button_clicked)
             self.refreshModulePushButton.clicked.connect(self.Refresh_Modules_clicked)
             self.stopPushButton.clicked.connect(self.on_stopButton_clicked)
-            self.actionOn.triggered.connect(self.debug_mode)
-            self.actionOff.triggered.connect(self.normal_mode)
             self.actionExit.triggered.connect(self.MainWindow.close)
             self.actionSupervised.setEnabled(False)
-            #self.pushButton.clicked.connect(self.on_outPutLocationButton_clicked)
             self.refreshModulePushButton.setHidden(True) #Hide the refresh button until we can find a less buggy way of implementing
 
         except Exception as e:
@@ -433,6 +371,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                                                                               "Open Workflow File",
                                                                               self.outpath,
                                                                               '(*.json)')
+        self.delete_module()
         try:
             print(self.restorefilename)
             with open(self.restorefilename, 'r') as fp:
@@ -493,6 +432,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
             print("Cannot delete")
 
+        if len(self.widgetList)==1:
+            self.actionRestore_Workflow.setEnabled(True)
+
     def on_okButton_clicked(self):
         """
         Start the multithreading function
@@ -539,22 +481,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         else:
             print("There is nothing running right now")
 
-    def on_AboutQt_clicked(self):
-        self.aboutqt = core.AboutQt.AboutQT()
-        self.aboutqt.show()
-
-    def on_About_clicked(self):
-        """
-        Display an about window that lets the user know what version their application is
-
-        :return:
-        """
-        self.aboutForm = core.About.About()
-        self.aboutForm.show()
-
-    def on_DataTable_clicked(self):
-        self.dataForm = core.DataTable.DataTable()
-        self.dataForm.show()
 
     def _writeWindowAttributeSettings(self):
         '''
@@ -687,6 +613,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             function()
         except Exception as e:
             print("Your {} module broke with error: {}.".format(type(self.widgetList[self.leftOff]).__name__, e))
+            traceback.print_exc()
             self.widgetList[self.leftOff].setDisabled(False)
 
     def _exceptionLogger(self, function):
@@ -720,24 +647,24 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
-        if self.debug:
-            self._exceptionLogger(self.runModules)
-        else:
-            self._logger(self.runModules)
+        # if self.debug:
+        #     self._exceptionLogger(self.runModules)
+        # else:
+        self._logger(self.runModules)
         self.taskFinished.emit()
 
-    # def on_outPutLocationButton_clicked(self):
-    #     filename = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Output Directory", '.')
-    #     self.folderNameLineEdit.setText(filename)
-    #     if self.folderNameLineEdit.text() == "":
-    #         self.folderNameLineEdit.setText("*/")
-    #
-    #     outpath = self.folderNameLineEdit.text()
-    #     try:
-    #         Modules.outpath = outpath
-    #         print("Output path folder has been set to " + outpath)
-    #     except Exception as e:
-    #         print("Error: {}; using default outpath: {}".format(e, Modules.outpath))
+    def on_outPutLocationButton_clicked(self):
+        filename = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Output Directory", '.')
+        self.folderNameLineEdit.setText(filename)
+        if self.folderNameLineEdit.text() == "":
+            self.folderNameLineEdit.setText("*/")
+
+        outpath = self.folderNameLineEdit.text()
+        try:
+            Modules.outpath = outpath
+            print("Output path folder has been set to " + outpath)
+        except Exception as e:
+            print("Error: {}; using default outpath: {}".format(e, Modules.outpath))
 
 
 def get_splash(app):
@@ -762,22 +689,12 @@ def get_splash(app):
             return 0
 
 
-def setDarkmode(app):
-    """
-    Start the darkmode for the application
-    """
-    settings = QSettings('USGS', 'PPSG')
-    p = settings.value('theme') == 'qtmodern'
-    if q and p:
-        qtmodern.styles.dark(app)
-
 
 def main():
     sys._excepthook = sys.excepthook
     sys.excepthook = my_exception_hook
     app = QtWidgets.QApplication(sys.argv)
     get_splash(app)
-    setDarkmode(app)
     mainWindow = QtWidgets.QMainWindow()
     ui = MainWindow()
     ui.setupUi(mainWindow)

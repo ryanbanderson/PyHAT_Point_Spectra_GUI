@@ -22,7 +22,7 @@ class Ui_Form(Ui_Form, Modules):
     def run(self):
         self.fit_intercept = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         params = {'method':['DS - Direct Standardization'],
-                  'fit_intercept': self.fit_intercept,
+                  'fit_intercept': self.fit_intercept
                   }
 
         return params

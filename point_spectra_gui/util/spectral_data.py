@@ -61,7 +61,7 @@ class spectral_data(object):
         self.df = deriv.deriv(self.df)
 
     def dim_red(self, col, method, params, kws, load_fit):
-        self.df, self.dim_red = dim_red.dim_red(self.df, col = col, method = method, params = params, kws = kws, load_fit = load_fit)
+        self.df, self.dim_red = dim_red.dim_red(self.df, col,  method, params, kws, load_fit = load_fit)
 
     def interp(self, xnew):
         self.df = interp.interp(self.df, xnew)
@@ -79,7 +79,7 @@ class spectral_data(object):
         self.df = norm.norm(self.df,ranges, col_var=col_var)
 
     def outlier_removal(self, col, method, params):
-        self.df, self.outlier_removal = outlier_removal.outlier_removal(self.df, col = col, method = method, params = params)
+        self.df = outlier_removal.outlier_removal(self.df, col = col, method = method, params = params)
 
     def peak_area(self, peaks_mins_file):
         self.df, self.peaks, self.mins = peak_area.peak_area(self.df,peaks_mins_file = peaks_mins_file)
@@ -95,6 +95,7 @@ class spectral_data(object):
 
     def enumerate_duplicates(self, col):
         self.df = enumerate_duplicates(self.df, col=col)
+
 
 
 

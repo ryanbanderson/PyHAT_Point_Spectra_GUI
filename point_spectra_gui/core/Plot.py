@@ -17,54 +17,38 @@ class Plot(Ui_Form, Modules):
         return self.groupBox
 
     def connectWidgets(self):
-        color_list = ["Red",
-                      "Green",
-                      "Blue",
-                      "Cyan",
-                      "Yellow",
-                      "Magenta",
-                      "Black"]
-        line_list = ["No Line",
-                     "Line",
-                     "Dashed Line",
-                     "Dotted Line"]
-        marker_list = ["Circles",
-                       "Squares",
-                       "Diamonds",
-                       "Triangle Up",
-                       "Triangle Down",
-                       "Triangle Left",
-                       "Triangle Right",
-                       "None"]
+        self.newfig_checkBox.setHidden(True)
+        self.colorcode_checkBox.setHidden(True)
         completer = QCompleter()
-        self.chooseXVariableComboBox.setMaximumWidth(200)
-        self.chooseYVariableComboBox.setMaximumWidth(200)
-        self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices())
-        self.figureNameLineEdit.setCompleter(completer)
+        self.newfig_lineEdit.setCompleter(completer)
         model = QStringListModel()
         completer.setModel(model)
         self.get_data(model)
+
         choices2 = ['None']
         datakey_choices = self.datakeys
         for choice in datakey_choices:
             choices2.append(choice)
         datakey_choices = choices2
+        fig_choices = self.figname
+        fig_choices2 = ['New Figure']
+        for choice in fig_choices:
+            fig_choices2.append(choice)
+        fig_choices = fig_choices2
+        none_choice = ['None']
 
         self.setComboBox(self.chooseDataComboBox, datakey_choices)
-        self.changeComboListVars(self.chooseYVariableComboBox, self.get_choices())
-        self.setComboBox(self.colorComboBox, color_list)
-        self.changeComboListVars(self.comboBoxcolorvar, self.get_choices())
+        self.setComboBox(self.figname_comboBox, fig_choices)
+        self.setComboBox(self.chooseYVariableComboBox, self.get_choices())
+        self.setComboBox(self.chooseXVariableComboBox, self.get_choices())
+        self.setComboBox(self.comboBoxcolorvar, self.get_choices())
 
-        self.setComboBox(self.lineComboBox, line_list)
-        self.setComboBox(self.markerComboBox, marker_list)
-        self.alphaDoubleSpinBox.setValue(0.25)
-        self.alphaDoubleSpinBox.setSingleStep(0.1)
-        self.alphaDoubleSpinBox.setMaximum(1)
-        self.xMinDoubleSpinBox.setMaximum(110)
-        self.xMaxDoubleSpinBox.setMaximum(110)
-        self.yMinDoubleSpinBox.setMaximum(110)
-        self.yMaxDoubleSpinBox.setMaximum(110)
         self.plotFilenamePushButton.clicked.connect(self.plotFilenamePushButton_clicked)
+
+        self.figname_comboBox.activated[int].connect(
+            lambda: self.newfig_check())
+        self.newfig_checkBox.stateChanged.connect(
+            lambda:self.fig_options())
         self.chooseDataComboBox.activated[int].connect(
             lambda: self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices()))
         self.chooseDataComboBox.activated[int].connect(
@@ -83,28 +67,93 @@ class Plot(Ui_Form, Modules):
         self.chooseYVariableComboBox.activated[int].connect(
             lambda: self.get_minmax(self.yMinDoubleSpinBox, self.yMaxDoubleSpinBox,
                                     self.chooseYVariableComboBox.currentText()))
-        self.comboBoxcolorvar.currentIndexChanged[int].connect(self.disable_colors)
+        self.comboBoxcolorvar.activated[int].connect(self.color_check)
+        self.colorcode_checkBox.stateChanged.connect(self.disable_colors)
+        self.chooseXVariableComboBox.activated[int].connect(self.set_xTitle)
+        self.chooseYVariableComboBox.activated[int].connect(self.set_yTitle)
+
+    def set_xTitle(self):
+        self.xTitleLineEdit.setText(self.chooseXVariableComboBox.currentText())
+
+    def set_yTitle(self):
+        self.yTitleLineEdit.setText(self.chooseYVariableComboBox.currentText())
+
+    def newfig_check(self):
+        if self.figname_comboBox.currentText() == 'New Figure':
+            self.newfig_checkBox.setChecked(True)
+        else:
+            self.newfig_checkBox.setChecked(False)
+
+    def fig_options(self):
+        if self.newfig_checkBox.isChecked():
+            self.xMinLabel.setHidden(False)
+            self.xMinDoubleSpinBox.setHidden(False)
+            self.xMaxLabel.setHidden(False)
+            self.xMaxDoubleSpinBox.setHidden(False)
+            self.xTitleLabel.setHidden(False)
+            self.xTitleLineEdit.setHidden(False)
+            self.yMaxLabel.setHidden(False)
+            self.yMaxDoubleSpinBox.setHidden(False)
+            self.yMinDoubleSpinBox.setHidden(False)
+            self.yMinLabel.setHidden(False)
+            self.yTitleLabel.setHidden(False)
+            self.yTitleLineEdit.setHidden(False)
+            self.plotTitleLabel.setHidden(False)
+            self.plotTitleLineEdit.setHidden(False)
+            self.newfig_lineEdit.setHidden(False)
+            self.newfig_label.setHidden(False)
+        else:
+            self.xMinLabel.setHidden(True)
+            self.xMinDoubleSpinBox.setHidden(True)
+            self.xMaxLabel.setHidden(True)
+            self.xMaxDoubleSpinBox.setHidden(True)
+            self.xTitleLabel.setHidden(True)
+            self.xTitleLineEdit.setHidden(True)
+            self.yMinLabel.setHidden(True)
+            self.yMinDoubleSpinBox.setHidden(True)
+            self.yMaxLabel.setHidden(True)
+            self.yMaxDoubleSpinBox.setHidden(True)
+            self.yTitleLabel.setHidden(True)
+            self.yTitleLineEdit.setHidden(True)
+            self.plotTitleLabel.setHidden(True)
+            self.plotTitleLineEdit.setHidden(True)
+            self.newfig_lineEdit.setHidden(True)
+            self.newfig_label.setHidden(True)
+
+    def color_check(self):
+        if self.comboBoxcolorvar.currentText() == 'None':
+            self.colorcode_checkBox.setChecked(False)
+        else:
+            self.colorcode_checkBox.setChecked(True)
 
     def disable_colors(self):
-          if self.comboBoxcolorvar.currentText() == 'None':
-               self.colorComboBox.setDisabled(False)
-               self.legendLineEdit.setDisabled(False)
-          elif self.comboBoxcolorvar.currentText() != 'None':
-              self.colorComboBox.setDisabled(True)
-              self.legendLineEdit.setDisabled(True)
+          if self.colorcode_checkBox.isChecked():
+              self.colorComboBox.setHidden(True)
+              self.colorLabel.setHidden(True)
+              self.legendLineEdit.setHidden(True)
+              self.legendLabel.setHidden(True)
+              self.lineComboBox.setHidden(True)
+              self.lineLabel.setHidden(True)
+              self.alphaLabel.setHidden(True)
+              self.alphaDoubleSpinBox.setHidden(True)
+          else:
+              self.colorComboBox.setHidden(False)
+              self.colorLabel.setHidden(False)
+              self.legendLineEdit.setHidden(False)
+              self.legendLabel.setHidden(False)
+              self.lineComboBox.setHidden(False)
+              self.lineLabel.setHidden(False)
+              self.alphaLabel.setHidden(False)
+              self.alphaDoubleSpinBox.setHidden(False)
+
 
     def run(self):
         cmap = 'viridis'
         datakey = self.chooseDataComboBox.currentText()
-#        datakey = datakey.append(['Choose Data'])
         xvar = self.chooseXVariableComboBox.currentText()
         yvar = self.chooseYVariableComboBox.currentText()
         colorvar = self.comboBoxcolorvar.currentText()
-        # if colorvar != 'None':
-        #    colorval = self.data[datakey].df[('comp', colorvar)]
-        # elif colorvar == 'None':
-        #    colorval = None
-        colorval = None
+
         if colorvar != 'None':
             for top_col_val in list(self.data[datakey].df.columns.levels[0]):
                 try:
@@ -112,23 +161,20 @@ class Plot(Ui_Form, Modules):
                 except:
                     pass
 
-            # try:
-            #     colorval = self.data[datakey].df[('comp', colorvar)]
-            # except:
-            #     try:
-            #         colorval = self.data[datakey].df[('meta', colorvar)]
-            #     except:
-            #         try:
-            #             colorval = self.data[datakey].df[('K-means', colorvar)]
-            #         except:
-            #             try:
-            #                 colorval = self.data[datakey].df[('Spectral', colorvar)]
-            #             except:
-            #                 pass
-        elif colorvar == 'None':
+        else:
             colorval = None
 
-        figname = self.figureNameLineEdit.text()
+        if self.figname_comboBox.currentText() == 'New Figure':
+            figname = self.newfig_lineEdit.text()
+        else:
+            figname = self.figname_comboBox.currentText()
+
+        loadfig = None
+        if not figname in self.figname:
+            self.figname.append(figname)
+        if figname in self.figs:
+            loadfig = self.figs[figname]
+
         title = self.plotTitleLineEdit.text()
         xrange = self.xMinDoubleSpinBox.value(), self.xMaxDoubleSpinBox.value()
         yrange = self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()
@@ -136,12 +182,9 @@ class Plot(Ui_Form, Modules):
         ytitle = self.yTitleLineEdit.text()
         lbl = self.legendLineEdit.text()
         one_to_one = self.oneToOneCheckBox.isChecked()
-
         color = self.colorComboBox.currentText()
-        #  if user chosen color var, color based on that
-#        else, use combobox
 
-        alpha = self.alphaDoubleSpinBox.value()
+        alpha = self.alphaDoubleSpinBox.value()/100.0
         annot_mask = None
         colortitle = ''
         dpi = 1000
@@ -204,11 +247,8 @@ class Plot(Ui_Form, Modules):
         except:
             x = self.data[datakey]['cv'][xvar]
             y = self.data[datakey]['cv'][yvar]
-        loadfig = None
-        if not figname in self.figname:
-            self.figname.append(figname)
-        if figname in self.figs:
-            loadfig = self.figs[figname]
+
+
 
         figpath = self.plotFilenameLineEdit.text()
         figpath, figfile = '/'.join(figpath.split('/')[:-1]), figpath.split('/')[-1]
@@ -221,29 +261,48 @@ class Plot(Ui_Form, Modules):
                                        colortitle=colortitle, loadfig=loadfig, marker=marker, linestyle=linestyle)
 
     def get_data_levels(self):
-        self.vars_level0 = self.data[self.chooseDataComboBox.currentText()].df.columns.get_level_values(0)
-        self.vars_level1 = self.data[self.chooseDataComboBox.currentText()].df.columns.get_level_values(1)
-        self.vars_level1 = self.vars_level1[self.vars_level0 != 'wvl']
-        self.vars_level0 = self.vars_level0[self.vars_level0 != 'wvl']
-        self.vars_level1 = list(self.vars_level1[self.vars_level0 != 'masked'])
-        self.vars_level0 = list(self.vars_level0[self.vars_level0 != 'masked'])
+        self.vars_level0 = []
+        self.vars_level1 = []
+
+        vars_level0 = self.data[self.chooseDataComboBox.currentText()].df.columns.get_level_values(0)
+        vars_level1 = self.data[self.chooseDataComboBox.currentText()].df.columns.get_level_values(1)
+        exclude_list = ['wvl','masked','peak_area']
+        for i in exclude_list:
+            vars_level1 = vars_level1[vars_level0 != i]
+            vars_level0 = vars_level0[vars_level0 != i]
+
+        #remove unnamed columns
         try:
             unnamed_flag0 = []
-            for i in self.vars_level0:
+            for i in vars_level0:
                 flag_val = 'Unnamed' not in str(i)
                 unnamed_flag0.append(flag_val)
             unnamed_flag1 = []
-            for i in self.vars_level1:
+            for i in vars_level1:
                 flag_val = 'Unnamed' not in str(i)
                 unnamed_flag1.append(flag_val)
 
             #at some point, need to make this more elegant
             unnamed_flag = np.logical_and(unnamed_flag0, unnamed_flag1).tolist()
-            self.vars_level0 = np.array(self.vars_level0)[unnamed_flag].tolist()
-            self.vars_level1 = np.array(self.vars_level1)[unnamed_flag].tolist()
+            vars_level0 = np.array(vars_level0)[unnamed_flag].tolist()
+            vars_level1 = np.array(vars_level1)[unnamed_flag].tolist()
 
         except:
             pass
+
+        #keep only columns that are numerical (I'm sure there is a more elegant way to do this)
+        for i in list(range(len(vars_level0))):
+            if self.data[self.chooseDataComboBox.currentText()].df[vars_level0[i], vars_level1[i]].dtype == 'float32':
+                self.vars_level0.append(vars_level0[i])
+                self.vars_level1.append(vars_level1[i])
+            elif self.data[self.chooseDataComboBox.currentText()].df[vars_level0[i], vars_level1[i]].dtype == 'float64':
+                self.vars_level0.append(vars_level0[i])
+                self.vars_level1.append(vars_level1[i])
+            elif self.data[self.chooseDataComboBox.currentText()].df[vars_level0[i], vars_level1[i]].dtype == 'int':
+                self.vars_level0.append(vars_level0[i])
+                self.vars_level1.append(vars_level1[i])
+            else:
+                print(vars_level0[i]+','+vars_level1[i]+' is non-numeric. Excluding.')
 
     def get_choices(self):
         try:
@@ -258,8 +317,7 @@ class Plot(Ui_Form, Modules):
         choices2 = ['None']
         for choice in choices:
             choices2.append(choice)
-        choices = choices2
-        return choices
+        return choices2
 
     def get_data(self, model):
         model.setStringList(self.figname)

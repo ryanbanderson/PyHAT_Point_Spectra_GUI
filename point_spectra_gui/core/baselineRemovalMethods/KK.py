@@ -19,16 +19,16 @@ class Ui_Form(Ui_Form, Modules):
 
     def connectWidgets(self):
         br = KK()
-        self.topWidthSpinBox.setValue(br.top_width_)
-        self.bottomWidthSpinBox.setValue(br.bottom_width_)
-        self.tangentCheckBox.setChecked(br.tangent_)
-        self.exponentSpinBox.setValue(br.exponent_)
+        self.topWidthSpinBox.setValue(br.top_width)
+        self.bottomWidthSpinBox.setValue(br.bottom_width)
+        self.tangentCheckBox.setChecked(br.tangent)
+        self.exponentSpinBox.setValue(br.exponent)
 
     def run(self):
-        methodParameters = {'top_width_': self.topWidthSpinBox.value(),
-                            'bottom_width_': self.bottomWidthSpinBox.value(),
-                            'tangent_': self.tangentCheckBox.isChecked(),
-                            'exponent_': self.exponentSpinBox.value()}
+        methodParameters = {'top_width': self.topWidthSpinBox.value(),
+                            'bottom_width': self.bottomWidthSpinBox.value(),
+                            'tangent': self.tangentCheckBox.isChecked(),
+                            'exponent': self.exponentSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, KK())
 
 

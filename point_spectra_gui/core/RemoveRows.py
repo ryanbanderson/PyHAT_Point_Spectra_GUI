@@ -133,11 +133,7 @@ class RemoveRows(Ui_Form, Modules):
         vars_level0 = list(vars_level0[vars_level0 != 'wvl'])
         colname = (vars_level0[vars_level1.index(colname)], colname)
         coldata = np.array([str(i) for i in self.data[datakey].df[colname]])
-        #
-        # if value == 'Null':
-        #     self.data[datakey] = spectral_data(self.data[datakey].df.ix[-self.data[datakey].df[colname].isnull()])
-        # else:
-        #     # find where the values in the specified column match the value to be removed
+
 
         if operator == '=':
             match = coldata == value
@@ -151,9 +147,7 @@ class RemoveRows(Ui_Form, Modules):
             match = coldata >= value
 
         return match
-        #     # keep everything except where match is true
-        #     self.data[datakey] = spectral_data(self.data[datakey].df.ix[~match])
-        # print(self.data[datakey].df.shape)
+
 
     def get_colname_choices(self):
         try:
@@ -178,12 +172,12 @@ class RemoveRows(Ui_Form, Modules):
         try:
             colname = (self.vars_level0[self.vars_level1.index(colname)], colname)
             choices = self.data[self.chooseData.currentText()].df[colname]
-            # choices = choices[~np.isnan(choices)]
-            # nchoices2 = choices.size
             nchoice = []
-            #choices = np.sort(choices)
+            try:
+                choices = np.sort(choices)
+            except:
+                pass
             choices = [str(i) for i in choices]
-            choices.sort()
             for choice in choices:
                 if not choice + ' : ' + str(choices.count(choice)) in nchoice:
                     nchoice.append(choice + ' : ' + str(choices.count(choice)))

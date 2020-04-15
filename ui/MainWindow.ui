@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
-    <height>596</height>
+    <width>850</width>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,8 +40,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>571</width>
-         <height>314</height>
+         <width>807</width>
+         <height>295</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2"/>
@@ -164,23 +164,16 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>603</width>
-     <height>22</height>
+     <width>850</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Workflow</string>
     </property>
-    <addaction name="separator"/>
-    <addaction name="actionLoad_Data"/>
-    <addaction name="actionRead_ChemCam_Data"/>
-    <addaction name="actionRename_Data"/>
-    <addaction name="actionSave_Current_Data"/>
-    <addaction name="separator"/>
     <addaction name="actionRestore_Workflow"/>
     <addaction name="actionSave_Current_Workflow"/>
-    <addaction name="separator"/>
     <addaction name="actionCreate_New_Workflow"/>
     <addaction name="actionExit"/>
    </widget>
@@ -188,19 +181,14 @@
     <property name="title">
      <string>Preprocessing</string>
     </property>
-    <addaction name="actionLook_Up_Metadata"/>
-    <addaction name="actionRemove_Rows"/>
-    <addaction name="actionCombine_Data_Sets"/>
-    <addaction name="actionOutlier_Removal"/>
-    <addaction name="actionSplit_Data"/>
     <addaction name="actionResample"/>
     <addaction name="actionRemove_Baseline"/>
     <addaction name="actionApply_Mask"/>
     <addaction name="actionPeak_Areas"/>
     <addaction name="actionMultiply_by_Vector"/>
     <addaction name="actionNormalization"/>
+    <addaction name="actionStandardize_Data"/>
     <addaction name="actionDimensionality_Reduction"/>
-    <addaction name="actionStratified_Folds"/>
     <addaction name="actionSpectral_Derivative"/>
     <addaction name="actionWavelength_Shift"/>
     <addaction name="actionCalibration_Transfer"/>
@@ -217,8 +205,6 @@
     <addaction name="actionSubmodel_Blend"/>
     <addaction name="actionSave_Trained_Model"/>
     <addaction name="actionRestore_Trained_Model"/>
-    <addaction name="actionSave_Regression_Model"/>
-    <addaction name="actionRestore_Regression_Model"/>
    </widget>
    <widget class="QMenu" name="menuVisualization">
     <property name="title">
@@ -227,42 +213,6 @@
     <addaction name="actionPlot"/>
     <addaction name="actionPlot_Spectra"/>
     <addaction name="actionPlot_ICA_PCA"/>
-    <addaction name="actionPlot_testmodule"/>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="actionAbout"/>
-    <addaction name="actionAbout_Qt"/>
-   </widget>
-   <widget class="QMenu" name="menuOptions">
-    <property name="title">
-     <string>Options</string>
-    </property>
-    <widget class="QMenu" name="menuDark_Mode">
-     <property name="title">
-      <string>Theme</string>
-     </property>
-     <addaction name="actionDefault"/>
-     <addaction name="actionBrace_yourself"/>
-     <addaction name="actionQtmodern"/>
-    </widget>
-    <widget class="QMenu" name="menuDebug_Mode">
-     <property name="title">
-      <string>Debug Mode</string>
-     </property>
-     <addaction name="actionOn"/>
-     <addaction name="actionOff"/>
-    </widget>
-    <addaction name="menuDark_Mode"/>
-    <addaction name="menuDebug_Mode"/>
-   </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>View</string>
-    </property>
-    <addaction name="actionData_Box"/>
    </widget>
    <widget class="QMenu" name="menuClassification">
     <property name="title">
@@ -271,14 +221,27 @@
     <addaction name="actionSupervised"/>
     <addaction name="actionCluster"/>
    </widget>
+   <widget class="QMenu" name="menuData">
+    <property name="title">
+     <string>Data</string>
+    </property>
+    <addaction name="actionLoad_Data"/>
+    <addaction name="actionSave_Current_Data"/>
+    <addaction name="actionRead_ChemCam_Data"/>
+    <addaction name="actionRename_Data"/>
+    <addaction name="actionLook_Up_Metadata"/>
+    <addaction name="actionRemove_Rows"/>
+    <addaction name="actionCombine_Data_Sets"/>
+    <addaction name="actionOutlier_Removal"/>
+    <addaction name="actionSplit_Data"/>
+    <addaction name="actionStratified_Folds"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuData"/>
    <addaction name="menuPreprocessing"/>
    <addaction name="menuClassification"/>
    <addaction name="menuRegression"/>
    <addaction name="menuVisualization"/>
-   <addaction name="menuOptions"/>
-   <addaction name="menuView"/>
-   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionRead_ChemCam_Data">
@@ -358,7 +321,7 @@
   </action>
   <action name="actionNormalization">
    <property name="text">
-    <string>Normalization</string>
+    <string>Normalize</string>
    </property>
   </action>
   <action name="actionDimensionality_Reduction">
@@ -483,7 +446,7 @@
   </action>
   <action name="actionOutlier_Removal">
    <property name="text">
-    <string>Outlier Removal</string>
+    <string>Remove Outliers</string>
    </property>
   </action>
   <action name="actionSave_Trained_Model">
@@ -549,6 +512,11 @@
   <action name="actionRestore_Regression_Model">
    <property name="text">
     <string>Restore Regression Model</string>
+   </property>
+  </action>
+  <action name="actionStandardize_Data">
+   <property name="text">
+    <string>Standardize</string>
    </property>
   </action>
  </widget>

@@ -16,13 +16,15 @@ class WriteToCSV(Ui_Form, Modules):
         self.setComboBox(self.chooseDataSetComboBox, self.datakeys)
         self.setListWidget(self.variablesToWriteListWidget, self.xvar_choices())
         self.variablesToWriteListWidget.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+        self.update_list()
         if setup==False:
-            self.chooseDataSetComboBox.currentIndexChanged.connect(
-                lambda: self.changeComboListVars(self.variablesToWriteListWidget, self.xvar_choices()))
+            self.chooseDataSetComboBox.currentIndexChanged.connect(self.update_list)
             self.pushButton.clicked.connect(self.on_pushButton_clicked)
 
-    def setup(self):
-        self.connectWidgets(setup=True)
+    def update_list(self):
+        choices = self.xvar_choices()
+        self.changeComboListVars(self.variablesToWriteListWidget, choices)
+        self.variablesToWriteListWidget.selectAll()
 
     def run(self):
         datakey = self.chooseDataSetComboBox.currentText()

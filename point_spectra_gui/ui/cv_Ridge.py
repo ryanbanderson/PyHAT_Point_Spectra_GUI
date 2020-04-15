@@ -77,7 +77,7 @@ class Ui_Form(object):
         Form.setWindowTitle(("Form"))
         self.min_alphaLabel.setText(("Min Alpha"))
         self.max_alphaLabel.setText(("Max Alpha"))
-        self.n_alpha_label.setText(("# of Alplhas"))
+        self.n_alpha_label.setText(("# of Alphas"))
         self.fitInterceptLabel.setText(("Fit Intercept"))
         __sortingEnabled = self.fit_intercept_list.isSortingEnabled()
         self.fit_intercept_list.setSortingEnabled(False)

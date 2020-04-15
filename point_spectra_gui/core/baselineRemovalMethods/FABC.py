@@ -19,12 +19,12 @@ class Ui_Form(Ui_Form, Modules):
 
     def connectWidgets(self):
         br = FABC()
-        self.smoothnessDoubleSpinBox.setValue(br.dilation_)
-        self.dilationSpinBox.setValue(br.smoothness_)
+        self.smoothnessDoubleSpinBox.setValue(br.dilation_param)
+        self.dilationSpinBox.setValue(br.smoothness_param)
 
     def run(self):
-        methodParameters = {'dilation_': self.smoothnessDoubleSpinBox.value(),
-                            'smoothness_': self.dilationSpinBox.value()}
+        methodParameters = {'dilation_param': self.smoothnessDoubleSpinBox.value(),
+                            'smoothness_param': self.dilationSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, FABC())
 
 

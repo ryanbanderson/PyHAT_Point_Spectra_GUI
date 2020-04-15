@@ -34,7 +34,6 @@ class BaselineRemoval(Ui_Form, Modules):
                                     'Median',
                                     'Polyfit',
                                     'Rubberband',
-                                    'Mario',
                                     'Wavelet a Trous + Spline',
                                     'Min + Interpolate'
                                     ]
@@ -62,6 +61,11 @@ class BaselineRemoval(Ui_Form, Modules):
             self.alg[i - 1].setGuiParams(dict[i])
 
     def run(self):
+        Modules.data_count += 1
+        self.baseline_index = Modules.data_count
+        Modules.data_count += 1
+        self.baseline_removed_index = Modules.data_count
+
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         # return method parameters and parameters that changed
@@ -69,8 +73,8 @@ class BaselineRemoval(Ui_Form, Modules):
 
         datakey_new = datakey + '-Baseline Removed-' + method + str(_changed)
         datakey_baseline = datakey + '-Baseline-' + method + str(_changed)
-        self.datakeys.append(datakey_new)
-        self.datakeys.append(datakey_baseline)
+        self.list_amend(self.datakeys, self.baseline_index, datakey_baseline)
+        self.list_amend(self.datakeys, self.baseline_removed_index, datakey_new)
         self.data[datakey_new] = self.data[datakey].df.copy(deep=True)
         df, df_baseline = remove_baseline(self.data[datakey_new],method, segment=True, params=methodParameters)
         self.data[datakey_new] = spectral_data(df)
@@ -94,7 +98,6 @@ class BaselineRemoval(Ui_Form, Modules):
             Median,
             Polyfit,
             Rubberband,
-            Mario,
             WaveletSpline,
             MinInterp
         ]

@@ -4,7 +4,7 @@ from point_spectra_gui.ui.CalibrationTransferCV import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.core.caltranMethods import *
 from point_spectra_gui.util import spectral_data
-from libpyhat.transform import cal_tran
+from libpyhat.transform import cal_tran, caltran_utils
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
@@ -39,7 +39,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
         self.DScheckbox.stateChanged.connect(
             lambda: self.toggle_caltran_widget('DS - Direct Standardization',self.DScheckbox.isChecked()))
         self.PDScheckbox.stateChanged.connect(
-            lambda: self.toggle_caltran_widget('PDS - Piecewise Direct Standardization',self.PDScheckbox.isChecked()))
+            lambda: self.toggle_caltran_widget('PDS - Piecewise DS',self.PDScheckbox.isChecked()))
         self.LASSODScheckbox.stateChanged.connect(
             lambda: self.toggle_caltran_widget('LASSO DS',self.LASSODScheckbox.isChecked()))
         self.PDSPLScheckBox.stateChanged.connect(
@@ -105,7 +105,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
             self.alg[a][0].setHidden(True)
 
     def caltranMethods(self):
-        self.alg = {'PDS - Piecewise Direct Standardization': [caltran_cv_PDS.Ui_Form(), self.PDSlayout],
+        self.alg = {'PDS - Piecewise DS': [caltran_cv_PDS.Ui_Form(), self.PDSlayout],
                     'PDS-PLS - PDS using Partial Least Squares': [caltran_cv_PDS_PLS.Ui_Form(), self.PDSPLSlayout],
                     'DS - Direct Standardization': [caltran_cv_DS.Ui_Form(),self.DSlayout],
                     'LASSO DS': [caltran_cv_LASSODS.Ui_Form(), self.LASSODSlayout],
@@ -139,7 +139,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
 
         paramgrid = [{'method':'None'}]
         if self.PDScheckbox.isChecked():
-            paramgrid.extend(list(ParameterGrid(self.alg['PDS - Piecewise Direct Standardization'][0].run())))
+            paramgrid.extend(list(ParameterGrid(self.alg['PDS - Piecewise DS'][0].run())))
         if self.PDSPLScheckBox.isChecked():
             paramgrid.extend(list(ParameterGrid(self.alg['PDS-PLS - PDS using Partial Least Squares'][0].run())))
         if self.DScheckbox.isChecked():
@@ -149,7 +149,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
         if self.Ratiocheckbox.isChecked():
             paramgrid.extend([{'method':'Ratio'}])
         if self.SparseDScheckBox.isChecked():
-            paramgrid.extend([{'method':'Sparse Low Rank DS'}])
+            paramgrid.extend(list(ParameterGrid(self.alg['Sparse Low Rank DS'][0].run())))
         if self.RidgeDScheckBox.isChecked():
             paramgrid.extend(list(ParameterGrid(self.alg['Ridge DS'][0].run())))
         if self.CCAcheckBox.isChecked():
@@ -164,7 +164,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
         #get the data sets
         A = self.data[datakeyA].df
         B = self.data[datakeyB].df
-        A_mean,B_mean = caltran_prepare_data.prepare_data(A,B,dataAmatchcol,dataBmatchcol)
+        A_mean,B_mean = caltran_utils.prepare_data(A,B,dataAmatchcol,dataBmatchcol)
 
         
 
@@ -201,7 +201,9 @@ class CalibrationTransferCV(Ui_Form, Modules):
                 cv_results.loc[ind, val + '_RMSE'] = rmses[-1] #record the RMSE for the held out spectrum
             cv_results.loc[ind,'average_RMSE']=np.mean(rmses)
             if self.keep_spectra_checkBox.isChecked():
-                self.datakeys.append(transformed_datakey)
+                Modules.data_count += 1
+                self.index = Modules.data_count
+                self.list_amend(self.datakeys,self.index,transformed_datakey)
                 self.data[transformed_datakey] = spectral_data.spectral_data(A_mean_transformed)
             ind = ind + 1
         cv_results.columns = pd.MultiIndex.from_tuples([('cv', col) for col in cv_results.columns])
@@ -211,7 +213,10 @@ class CalibrationTransferCV(Ui_Form, Modules):
         while cvid in self.datakeys:
             number += 1
             cvid = cvid + ' - ' + str(number)
-        self.datakeys.append(cvid)
+
+        Modules.data_count += 1
+        self.index = Modules.data_count
+        self.list_amend(self.datakeys,self.index,cvid)
         self.data[cvid] = cv_results
 
 

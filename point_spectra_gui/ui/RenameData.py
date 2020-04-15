@@ -35,7 +35,7 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
         self.groupBox.setTitle(("Rename Data Set"))
-        self.renameDataLabel.setText(("Rename Data"))
+        self.renameDataLabel.setText(("Change name from "))
         self.toDataLabel.setText(("to"))
 
 

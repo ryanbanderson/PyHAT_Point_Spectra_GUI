@@ -24,10 +24,8 @@ class Lookup(Ui_Form, Modules):
                 self.setComboBox(self.left_on, [''])
             except:
                 pass
-        #self.lookupfilename = self.lookupfile.text()
         self.choosedata.currentIndexChanged.connect(self.set_left_on)
         self.filebrowse.clicked.connect(self.on_filebrowse_clicked)
-        #self.lookupfile.textChanged.connect(self.read_lookupdata)
         self.skiprows_spin.valueChanged.connect(self.read_lookupdata)
 
     def set_left_on(self):
@@ -69,10 +67,6 @@ class Lookup(Ui_Form, Modules):
             pass
 
 
-
-    def setup(self):
-        # TODO this file needs to be redone to fit the similar setup to `LoadData`
-        pass
 
     def run(self):
         self.lookupfilename = self.lookupfile.text()

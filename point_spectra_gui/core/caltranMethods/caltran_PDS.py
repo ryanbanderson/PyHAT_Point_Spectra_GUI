@@ -19,6 +19,7 @@ class Ui_Form(Ui_Form, Modules):
     def connectWidgets(self):
         self.toggle_pls()
         self.pls_checkbox.stateChanged.connect(self.toggle_pls)
+        self.winsize_spin.valueChanged.connect(lambda: self.pls_spin.setMaximum(self.winsize_spin.value()-1))
 
     def toggle_pls(self):
         if self.pls_checkbox.isChecked():
@@ -30,7 +31,7 @@ class Ui_Form(Ui_Form, Modules):
 
 
     def run(self):
-        window_size = self.pls_spin.value()
+        window_size = self.winsize_spin.value()
         use_pls = self.pls_checkbox.isChecked()
         pls_nc = self.pls_spin.value()
         params = {'win_size': window_size,

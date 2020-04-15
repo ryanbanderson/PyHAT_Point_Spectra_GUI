@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>537</width>
+    <height>595</height>
+   </rect>
+  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
     <horstretch>0</horstretch>
@@ -18,10 +26,122 @@
       <string>Plot Spectra</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="chooseDataLabel">
+      <item row="10" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="yminlabel">
+          <property name="text">
+           <string>Y Min</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="yminSpinBox">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-9999999999999999583119736832.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100000000000000004384584304507619735463404765184.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="ymaxlabel">
+          <property name="text">
+           <string>Y Max</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="ymaxSpinBox">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-999999999999999929757289024535551219930759168.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100000000000000004384584304507619735463404765184.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="xtitle_label">
         <property name="text">
-         <string>Choose Data</string>
+         <string>X Title</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="xtitle_lineEdit"/>
+      </item>
+      <item row="11" column="1">
+       <widget class="QLineEdit" name="ytitle_lineEdit"/>
+      </item>
+      <item row="11" column="0">
+       <widget class="QLabel" name="ytitle_label">
+        <property name="text">
+         <string>Y Title</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="newfig_lineEdit">
+        <property name="text">
+         <string>Fig 1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="xminLabel">
+          <property name="text">
+           <string>X Min</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="xminDoubleSpinBox">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>1000000000000000044885712678075916785549312.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="xmaxLabel">
+          <property name="text">
+           <string>X Max</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="xmaxDoubleSpinBox">
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="maximum">
+           <double>99999999999999999322094867436162797646170844194406400.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="figname_comboBox"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="newfig_label">
+        <property name="text">
+         <string>New figure name</string>
         </property>
        </widget>
       </item>
@@ -32,77 +152,49 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="plotTitleLabel">
-        <property name="text">
-         <string>Plot Title</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="xVariableLabel">
-        <property name="text">
-         <string>X Variable:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="chooseColumnLabel">
-        <property name="text">
-         <string>Choose Column</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
+      <item row="9" column="0">
        <widget class="QLabel" name="chooseRowsLabel">
         <property name="text">
          <string>Choose Rows:</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
+      <item row="12" column="0">
        <widget class="QLabel" name="colorLabel">
         <property name="text">
          <string>Color</string>
         </property>
        </widget>
       </item>
-      <item row="8" column="0">
+      <item row="13" column="0">
        <widget class="QLabel" name="lineLabel">
         <property name="text">
-         <string>Line</string>
+         <string>Line style</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="0">
+      <item row="4" column="0">
+       <widget class="QLabel" name="plotTitleLabel">
+        <property name="text">
+         <string>Plot Title</string>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="0">
        <widget class="QLabel" name="alphaLabel">
         <property name="text">
-         <string>Alpha</string>
+         <string>Opacity (%)</string>
         </property>
        </widget>
       </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="lineWidthLabel">
+      <item row="5" column="0">
+       <widget class="QLabel" name="xVariableLabel">
         <property name="text">
-         <string>Line width</string>
+         <string>X Variable:</string>
         </property>
        </widget>
       </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="plotFilenameLabel">
-        <property name="text">
-         <string>Plot Filename</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="1">
-       <widget class="QLineEdit" name="plotFilenameLineEdit">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="2">
+      <item row="16" column="2">
        <widget class="QPushButton" name="pushButton">
         <property name="minimumSize">
          <size>
@@ -121,59 +213,154 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1" colspan="2">
-       <widget class="QLineEdit" name="figureNameLineEdit"/>
+      <item row="8" column="0">
+       <widget class="QLabel" name="chooseColumnLabel">
+        <property name="text">
+         <string>Choose Column</string>
+        </property>
+       </widget>
       </item>
-      <item row="2" column="1" colspan="2">
-       <widget class="QLineEdit" name="plotTitleLineEdit"/>
+      <item row="16" column="1">
+       <widget class="QLineEdit" name="plotFilenameLineEdit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="4" column="1" colspan="2">
-       <widget class="QComboBox" name="chooseColumnComboBox"/>
-      </item>
-      <item row="6" column="0" colspan="3">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="minLabel">
-          <property name="text">
-           <string>Min</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QDoubleSpinBox" name="minDoubleSpinBox"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="maxLabel">
-          <property name="text">
-           <string>Max</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QDoubleSpinBox" name="maxDoubleSpinBox"/>
-        </item>
-       </layout>
-      </item>
-      <item row="7" column="1" colspan="2">
-       <widget class="QComboBox" name="colorComboBox"/>
+       <widget class="QLineEdit" name="plotTitleLineEdit"/>
       </item>
       <item row="8" column="1" colspan="2">
-       <widget class="QComboBox" name="lineComboBox"/>
+       <widget class="QComboBox" name="chooseColumnComboBox"/>
       </item>
-      <item row="9" column="1" colspan="2">
-       <widget class="QDoubleSpinBox" name="alphaDoubleSpinBox"/>
+      <item row="15" column="0">
+       <widget class="QLabel" name="lineWidthLabel">
+        <property name="text">
+         <string>Line width</string>
+        </property>
+       </widget>
       </item>
-      <item row="10" column="1" colspan="2">
-       <widget class="QDoubleSpinBox" name="lineWidthDoubleSpinBox"/>
+      <item row="0" column="0">
+       <widget class="QLabel" name="chooseDataLabel">
+        <property name="text">
+         <string>Choose Data</string>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="0">
+       <widget class="QLabel" name="plotFilenameLabel">
+        <property name="text">
+         <string>Plot Filename</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1" colspan="2">
        <widget class="QComboBox" name="chooseDataComboBox"/>
       </item>
+      <item row="12" column="1" colspan="2">
+       <widget class="QComboBox" name="colorComboBox">
+        <item>
+         <property name="text">
+          <string>Red</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Green</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Blue</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Cyan</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Yellow</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Magenta</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Black</string>
+         </property>
+        </item>
+       </widget>
+      </item>
       <item row="5" column="1" colspan="2">
+       <widget class="QListWidget" name="xVariableListWidget"/>
+      </item>
+      <item row="15" column="1" colspan="2">
+       <widget class="QDoubleSpinBox" name="lineWidthDoubleSpinBox">
+        <property name="maximum">
+         <double>10.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.050000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="1" colspan="2">
+       <widget class="QDoubleSpinBox" name="alphaDoubleSpinBox">
+        <property name="decimals">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="1" colspan="2">
+       <widget class="QComboBox" name="lineComboBox">
+        <item>
+         <property name="text">
+          <string>Line</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Dashed Line</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Dotted Line</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Points (No Line)</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="9" column="1" colspan="2">
        <widget class="QListWidget" name="chooseRowsListWidget"/>
       </item>
-      <item row="3" column="1" colspan="2">
-       <widget class="QListWidget" name="xVariableListWidget"/>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="newfig_checkBox">
+        <property name="text">
+         <string>New Figure</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -182,13 +369,12 @@
  </widget>
  <tabstops>
   <tabstop>chooseDataComboBox</tabstop>
-  <tabstop>figureNameLineEdit</tabstop>
   <tabstop>plotTitleLineEdit</tabstop>
   <tabstop>xVariableListWidget</tabstop>
   <tabstop>chooseColumnComboBox</tabstop>
   <tabstop>chooseRowsListWidget</tabstop>
-  <tabstop>minDoubleSpinBox</tabstop>
-  <tabstop>maxDoubleSpinBox</tabstop>
+  <tabstop>xminDoubleSpinBox</tabstop>
+  <tabstop>xmaxDoubleSpinBox</tabstop>
   <tabstop>colorComboBox</tabstop>
   <tabstop>lineComboBox</tabstop>
   <tabstop>alphaDoubleSpinBox</tabstop>

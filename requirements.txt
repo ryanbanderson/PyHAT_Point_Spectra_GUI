@@ -3,6 +3,3 @@ numpy
 pandas
 scipy
 matplotlib
-sklearn
-qtmodern
-Qtickle

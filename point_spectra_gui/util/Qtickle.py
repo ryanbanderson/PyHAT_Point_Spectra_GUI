@@ -176,7 +176,7 @@ class Qtickle(object):
                         for i in index:
                             matching_items = obj.findItems(i, QtCore.Qt.MatchExactly)
                             for item in matching_items:
-                                obj.setCurrentItem(item)
+                               item.setSelected(True)
 
             except Exception as e:
                 pass

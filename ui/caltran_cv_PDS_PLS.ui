@@ -23,7 +23,7 @@
    <item>
     <widget class="QGroupBox" name="formGroupBox">
      <property name="title">
-      <string>PDS - Piecewise Direct Standardization</string>
+      <string>PDS using Partial Least Squares</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
       <item row="1" column="0">

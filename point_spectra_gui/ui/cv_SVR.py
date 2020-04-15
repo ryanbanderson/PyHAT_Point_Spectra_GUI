@@ -3,7 +3,9 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -41,8 +43,6 @@ class Ui_Form(object):
         self.kernel_list.setMaximumSize(QtCore.QSize(16777215, 120))
         self.kernel_list.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
         self.kernel_list.setObjectName("kernel_list")
-        item = QtWidgets.QListWidgetItem()
-        self.kernel_list.addItem(item)
         item = QtWidgets.QListWidgetItem()
         self.kernel_list.addItem(item)
         item = QtWidgets.QListWidgetItem()
@@ -115,8 +115,6 @@ class Ui_Form(object):
         item.setText(("Polynomial"))
         item = self.kernel_list.item(3)
         item.setText(("Sigmoid"))
-        item = self.kernel_list.item(4)
-        item.setText(("Precomputed"))
         self.kernel_list.setSortingEnabled(__sortingEnabled)
         self.degreeLabel.setText(("Polynomial Degree"))
         self.coeff0Label.setText(("Coeff 0"))
@@ -140,4 +138,3 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

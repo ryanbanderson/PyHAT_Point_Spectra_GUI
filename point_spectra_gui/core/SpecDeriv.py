@@ -2,8 +2,8 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.SpecDeriv import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.spectral_data import spectral_data
-from libpyhat.transform.deriv import deriv
+import copy
+import numpy as np
 
 class SpecDeriv(Ui_Form, Modules):
     def setupUi(self, Form):
@@ -20,6 +20,7 @@ class SpecDeriv(Ui_Form, Modules):
         datakey = self.chooseDataToDerivComboBox.currentText()
         new_datakey = datakey + ' - Derivative'
         self.datakeys.append(new_datakey)
+        self.data[new_datakey] = copy.deepcopy(self.data[datakey])
         self.data[new_datakey].deriv()
         print("Derivative Applied")
 

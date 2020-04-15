@@ -75,8 +75,6 @@ class OutlierRemoval(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
-    def setup(self):
-        self.connectWidgets(setup=True)
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()

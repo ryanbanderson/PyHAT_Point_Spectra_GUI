@@ -24,6 +24,9 @@ class RestoreTrainedModel(Ui_Form, Modules):
             load = pickle.load(fp)
         self.modelkeys.append(load[0])
         self.models[load[0]] = load[1]
+        self.model_xvars[load[0]]=load[2]
+        self.model_yvars[load[0]] = load[3]
+
         pass
 
     def on_restorePushButton_clicked(self, lineEdit):
@@ -36,18 +39,12 @@ class RestoreTrainedModel(Ui_Form, Modules):
             lineEdit.setText("*.tram")
         # Load the json file into the restoreTextBrowser to be viewed
         with open(filename, 'rb') as fp:
-            output = pickle.load(fp)[0]
-            self.display(output)
+            output = pickle.load(fp)
+            print('Model name: '+output[0])
+            print('x variable: '+output[2][0])
 
-    def on_detailsPushButton_clicked(self):
-        pass
 
-    def display(self, text):
-        cursor = self.restoreTextBrowser.textCursor()
-        cursor.movePosition(QtGui.QTextCursor.End)
-        cursor.insertText(text)
-        self.restoreTextBrowser.setTextCursor(cursor)
-        self.restoreTextBrowser.ensureCursorVisible()
+
 
 
 if __name__ == "__main__":

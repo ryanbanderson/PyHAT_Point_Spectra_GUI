@@ -71,17 +71,6 @@ class DimensionalityReduction(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
-    def setup(self):
-        method = self.chooseMethodComboBox.currentText()
-        datakey = self.chooseDataComboBox.currentText()
-        params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
-        if method != 'Choose an algorithm':
-            try:
-                for i in list(range(1, params['n_components'])):  # will need to revisit this for other methods that don't use n_components to make sure column names still mamke sense
-                    self.data[datakey].df[(method, str(i))] = 99999 #fill with dummy data to be replaced when actually run
-            except:
-                pass
-
 
     def run(self):
         method = self.chooseMethodComboBox.currentText()
@@ -90,7 +79,10 @@ class DimensionalityReduction(Ui_Form, Modules):
         params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
         load_fit = False
         col = 'wvl'
-        df, PCA_obj = dim_red(self.data[datakey].df, col, method, [], params, load_fit)
+        df, dimred_obj = dim_red(self.data[datakey].df, col, method, [], params, load_fit)
+        dimredkey = datakey+'-'+method
+        self.dimredkeys.append(dimredkey)
+        self.dimred[dimredkey] = dimred_obj
 
     def make_dimred_widget(self, alg, params=None):
         self.hideAll()

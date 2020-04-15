@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>659</width>
+    <height>792</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="formGroupBox">
+     <property name="title">
+      <string>Regression Cross Validation</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="8" column="0" colspan="2">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="choosemethodstext">
+          <property name="text">
+           <string>Choose which methods to evaluate:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="ARDcheckbox">
+          <property name="text">
+           <string>ARD - Automatic Relevance Determination</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="ARDLayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="BRRcheckbox">
+          <property name="text">
+           <string>BRR - Bayesian Ridge Regression</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="BRRlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="ENetcheckbox">
+          <property name="text">
+           <string>Elastic Net</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="ENetlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="LARScheckbox">
+          <property name="text">
+           <string>LARS - Least Angle Regression</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="LARSlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="LASSOcheckBox">
+          <property name="text">
+           <string>LASSO - Least Absolute Shrinkage and Selection Operator</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="LASSOlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="OLScheckBox">
+          <property name="text">
+           <string>OLS - Ordinary Least Squares</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="OLSLayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="OMPcheckBox">
+          <property name="text">
+           <string>OMP - Orthogonal Matching Pursuit</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="OMPlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="PLScheckBox">
+          <property name="text">
+           <string>PLS - Partial Least Squares</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="PLSLayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="RidgecheckBox">
+          <property name="text">
+           <string>Ridge</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="Ridgelayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="SVRcheckBox">
+          <property name="text">
+           <string>SVR - Support Vector Regression</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="SVRlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="LocalcheckBox">
+          <property name="text">
+           <string>Local Regression</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="Locallayout"/>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="chooseDataLabel">
+          <property name="text">
+           <string>Choose Data</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="chooseDataComboBox"/>
+        </item>
+       </layout>
+      </item>
+      <item row="5" column="0">
+       <widget class="QListWidget" name="xVariableList">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <item>
+         <property name="text">
+          <string>Choose X</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QListWidget" name="yVariableList">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>Choose Y</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="yMinLabel">
+          <property name="text">
+           <string>Y Min</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="yMinDoubleSpinBox">
+          <property name="maximum">
+           <double>999999999.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="yMaxLabel">
+          <property name="text">
+           <string>Y Max</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="yMaxDoubleSpinBox">
+          <property name="maximum">
+           <double>99999999999999.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>100.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="infolabel">
+        <property name="text">
+         <string>Evaluates multiple methods and parameters to optimize regression.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="xVariableLabel">
+        <property name="text">
+         <string>X Variable</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="yVariableLabel">
+        <property name="text">
+         <string>Y Variable</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

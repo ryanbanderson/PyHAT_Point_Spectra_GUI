@@ -33,11 +33,6 @@ class Ui_Form(object):
         self.leaf_size_label.setToolTip("")
         self.leaf_size_label.setObjectName("leaf_size_label")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.leaf_size_label)
-        self.leaf_size_spin = QtWidgets.QDoubleSpinBox(self.groupBox)
-        self.leaf_size_spin.setDecimals(4)
-        self.leaf_size_spin.setMaximum(0.5)
-        self.leaf_size_spin.setObjectName("leaf_size_spin")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.leaf_size_spin)
         self.metric_combo = QtWidgets.QComboBox(self.groupBox)
         self.metric_combo.setObjectName("metric_combo")
         self.metric_combo.addItem("")
@@ -50,8 +45,16 @@ class Ui_Form(object):
         self.contamination_label.setObjectName("contamination_label")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.contamination_label)
         self.contamination_spin = QtWidgets.QDoubleSpinBox(self.groupBox)
+        self.contamination_spin.setMaximum(50.0)
+        self.contamination_spin.setSingleStep(1.0)
+        self.contamination_spin.setProperty("value", 10.0)
         self.contamination_spin.setObjectName("contamination_spin")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.contamination_spin)
+        self.leaf_size_spin = QtWidgets.QSpinBox(self.groupBox)
+        self.leaf_size_spin.setMaximum(999999)
+        self.leaf_size_spin.setProperty("value", 30)
+        self.leaf_size_spin.setObjectName("leaf_size_spin")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.leaf_size_spin)
         self.verticalLayout.addWidget(self.groupBox)
 
         self.retranslateUi(Form)
@@ -65,7 +68,7 @@ class Ui_Form(object):
         self.metric_combo.setItemText(0, ("Euclidean"))
         self.metric_combo.setItemText(1, ("Manhattan"))
         self.metric_label.setText(("Distance Metric"))
-        self.contamination_label.setText(("Fraction of outliers"))
+        self.contamination_label.setText(("% outliers"))
 
 
 if __name__ == "__main__":

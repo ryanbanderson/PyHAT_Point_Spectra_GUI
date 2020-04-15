@@ -1,0 +1,45 @@
+{% set version = "1.0.3" %}
+
+package:
+  name: ppsg
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/USGS-Astrogeology/PyHAT_Point_Spectra_GUI
+  git_rev: master
+
+build:
+  number: {{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
+  skip: True  # [not py3k]
+
+requirements:
+  build:
+    - python x.x
+    - pyqt
+    - numpy>=1.18
+    - pandas
+    - scipy
+    - matplotlib
+    - scikit-learn
+    - docutils
+    - plio
+    - pyhat
+  run:
+    - python x.x
+    - pyqt
+    - numpy>=1.18
+    - pandas
+    - scipy
+    - matplotlib
+    - scikit-learn
+    - docutils
+    - plio
+    - pyhat
+
+test:
+  imports:
+    - point_spectra_gui
+
+about:
+  home: https://github.com/USGS-Astrogeology/PyHAT_Point_Spectra_GUI
+  license: Unlicense

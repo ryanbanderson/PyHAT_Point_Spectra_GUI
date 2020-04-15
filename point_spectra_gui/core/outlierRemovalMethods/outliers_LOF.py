@@ -17,10 +17,7 @@ class Ui_Form(Ui_Form, LocalOutlierFactor, Modules):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
-        self.n_neighbors_spin.setValue(20)
-        self.leaf_size_spin.setValue(30)
-        self.contamination_spin.setValue(0.1)
-
+        pass
 
     def run(self):
         metric = self.metric_combo.currentText()
@@ -31,7 +28,8 @@ class Ui_Form(Ui_Form, LocalOutlierFactor, Modules):
 
         params = {
             'n_neighbors': self.n_neighbors_spin.value(),
-            'contamination': self.contamination_spin.value(),
+            'contamination': self.contamination_spin.value()/100.0,
+            'leaf_size': self.leaf_size_spin.value(),
             'n_jobs': -1,
             'p': p}
 

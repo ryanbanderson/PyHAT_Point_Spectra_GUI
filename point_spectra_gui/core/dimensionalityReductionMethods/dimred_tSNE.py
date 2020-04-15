@@ -29,7 +29,8 @@ class Ui_Form(Ui_Form, TSNE, Modules):
             'learning_rate': self.learning_spin.value(),
             'n_iter': self.n_iter_spin.value(),
             'n_iter_without_progress': self.no_progress_spin.value(),
-            'perplexity': self.perplexity_spin.value()
+            'perplexity': self.perplexity_spin.value(),
+            'init': 'pca'
         }
 
         params_key = str(params)

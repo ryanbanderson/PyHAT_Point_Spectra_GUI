@@ -24,11 +24,18 @@ class Plot_ICA_PCA(Ui_Form, Modules):
             lambda: self.changeComboListVars(self.chooseXVariableComboBox, self.xychoices()))
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.chooseYVariableComboBox, self.xychoices()))
+        self.chooseDataComboBox.currentIndexChanged.connect(
+            lambda: self.colorchoices_change_vars(self.colorCodedVariableComboBox))
 
     def run(self):
         cmap = 'viridis'
         datakey = self.chooseDataComboBox.currentText()
         method = self.chooseMethodComboBox.currentText()
+        dimredkey = datakey + '-' + method
+        try:
+            dimred_obj = self.dimred[dimredkey]
+        except:
+            dimred_obj = None
         x_component = self.chooseXVariableComboBox.currentText()
         y_component = self.chooseYVariableComboBox.currentText()
         if self.colorCodedVariableComboBox.currentText() != 'None':
@@ -37,12 +44,12 @@ class Plot_ICA_PCA(Ui_Form, Modules):
             colorvar = None
         filename = self.plotFilenameLineEdit.text()
         figpath, figfile = '/'.join(filename.split('/')[:-1]), filename.split('/')[-1]
-        pca_ica_plot(self.data[datakey], x_component, y_component, colorvar=colorvar, cmap=cmap, method=method,
+        pca_ica_plot(self.data[datakey], x_component, y_component, dimred_obj, colorvar=colorvar, cmap=cmap, method=method,
                      figpath=figpath, figfile=figfile)
 
     def xychoices(self):
         try:
-            choices = [str(int(i)) for i in self.data[self.chooseDataComboBox.currentText()].df[
+            choices = [str(i) for i in self.data[self.chooseDataComboBox.currentText()].df[
                 self.chooseMethodComboBox.currentText()].columns.values]
         except Exception as e:
             choices = ['-']

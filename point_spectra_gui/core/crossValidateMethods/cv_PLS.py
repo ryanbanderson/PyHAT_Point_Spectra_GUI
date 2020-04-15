@@ -23,8 +23,7 @@ class Ui_Form(Ui_Form, PLSRegression, Modules):
     def run(self):
         params = {'n_components': [int(i) for i in self.numOfComponentsLineEdit.text().split(',')],
                   'scale': [False]}
-        modelkey = 'PLS (nc=' + str(params['n_components']) + ')'
-        return params, modelkey
+        return params
 
 
 if __name__ == "__main__":

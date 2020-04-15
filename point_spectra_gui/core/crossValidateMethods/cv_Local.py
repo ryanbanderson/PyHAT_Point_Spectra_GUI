@@ -29,6 +29,7 @@ class Ui_Form(Ui_Form, Modules):
         positive_items = [i.text() == 'True' for i in self.forcePositive_list.selectedItems()]
         n_neighbors = [int(i) for i in self.n_neighbors_lineEdit.text().split(',')]
 
+
         if method=='LASSO':
             params = {'n_neighbors': n_neighbors,
                   'fit_intercept': fit_intercept_items,
@@ -36,12 +37,13 @@ class Ui_Form(Ui_Form, Modules):
                   }
         else:
             params = {}
-        keyparams = {}
-        keyparams['method'] = 'Local '+method
-        keyparams['n_neighbors'] = n_neighbors
 
-        modelkey = str(keyparams)
-        return params, modelkey
+        # keyparams = {}
+        # keyparams['method'] = 'Local '+method
+        # keyparams['n_neighbors'] = n_neighbors
+        #
+        # modelkey = str(keyparams)
+        return params
 
 
 if __name__ == "__main__":

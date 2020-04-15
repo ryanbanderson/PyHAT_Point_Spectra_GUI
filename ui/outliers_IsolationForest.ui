@@ -49,10 +49,16 @@
       <item row="1" column="1">
        <widget class="QDoubleSpinBox" name="prop_outliers_spin">
         <property name="decimals">
-         <number>4</number>
+         <number>2</number>
         </property>
         <property name="maximum">
-         <double>0.500000000000000</double>
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.100000000000000</double>
         </property>
        </widget>
       </item>
