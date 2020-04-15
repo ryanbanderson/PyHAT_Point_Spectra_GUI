@@ -19,14 +19,14 @@ class Ui_Form(Ui_Form, Modules):
 
     def connectWidgets(self):
         airPLS = AirPLS()
-        self.smoothnessSpinBox.setValue(airPLS.smoothness_)
-        self.convergenceThresholdDoubleSpinBox.setValue(airPLS.conv_thresh_)
-        self.maxNumOfIterationsSpinBox.setValue(airPLS.max_iters_)
+        self.smoothnessSpinBox.setValue(airPLS.smoothness_param)
+        self.convergenceThresholdDoubleSpinBox.setValue(airPLS.conv_thresh)
+        self.maxNumOfIterationsSpinBox.setValue(airPLS.max_iters)
 
     def run(self):
-        methodParameters = {'smoothness_': float(self.smoothnessSpinBox.value()),
-                            'conv_thresh_': float(self.convergenceThresholdDoubleSpinBox.value()),
-                            'max_iters_': float(self.maxNumOfIterationsSpinBox.value())}
+        methodParameters = {'smoothness_param': float(self.smoothnessSpinBox.value()),
+                            'conv_thresh': float(self.convergenceThresholdDoubleSpinBox.value()),
+                            'max_iters': float(self.maxNumOfIterationsSpinBox.value())}
 
         return methodParameters, self.getChangedValues(methodParameters, AirPLS())
 

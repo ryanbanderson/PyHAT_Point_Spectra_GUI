@@ -19,13 +19,13 @@ class Ui_Form(Ui_Form, Modules):
 
     def connectWidgets(self):
         br = Rubberband()
-        self.n_iter_spin.setValue(br.num_iters_)
-        self.numOfRangesSpinBox.setValue(br.num_ranges_)
+        self.n_iter_spin.setValue(br.num_iters)
+        self.numOfRangesSpinBox.setValue(br.num_ranges)
 
     def run(self):
 
-        methodParameters = {'num_iters_': self.n_iter_spin.value(),
-                            'num_ranges_': self.numOfRangesSpinBox.value()}
+        methodParameters = {'num_iters': self.n_iter_spin.value(),
+                            'num_ranges': self.numOfRangesSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, Rubberband())
 
 

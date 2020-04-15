@@ -17,12 +17,12 @@ class Ui_Form(Ui_Form, Modules):
 
     def connectWidgets(self):
         br = Dietrich()
-        self.halfWindowSpinBox.setValue(br.half_window_)
-        self.numOfErosionsSpinBox.setValue(br.num_erosions_)
+        self.halfWindowSpinBox.setValue(br.half_window)
+        self.numOfErosionsSpinBox.setValue(br.num_erosions)
 
     def run(self):
-        methodParameters = {'half_window_': self.halfWindowSpinBox.value(),
-                            'num_erosions_': self.numOfErosionsSpinBox.value()}
+        methodParameters = {'half_window': self.halfWindowSpinBox.value(),
+                            'num_erosions': self.numOfErosionsSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, Dietrich())
 
 

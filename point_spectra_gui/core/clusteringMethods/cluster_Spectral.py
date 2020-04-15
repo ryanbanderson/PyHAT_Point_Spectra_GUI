@@ -44,6 +44,7 @@ class Ui_Form(Ui_Form, PCA, Modules):
             hide_list['n_neighbors'] = False
         if kernel == 'Sigmoid':
             hide_list['coef0'] = False
+            hide_list['gamma'] = False
         if kernel == 'Polynomial':
             hide_list['degree'] = False
             hide_list['coef0'] = False

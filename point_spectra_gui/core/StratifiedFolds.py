@@ -30,18 +30,6 @@ class StratifiedFolds(Ui_Form, Modules):
         self.chooseDataToStratifyComboBox.activated[int].connect(self.strat_fold_change_vars)
         self.nFoldsSpinBox.valueChanged.connect(self.strat_fold_change_testfolds)
 
-    def setup(self):
-        try:
-            datakey = self.chooseDataToStratifyComboBox.currentText()
-
-            self.data[datakey + '-Train'] = copy.deepcopy(self.data[datakey])
-            self.data[datakey + '-Test'] = copy.deepcopy(self.data[datakey])
-            if datakey + '-Train' not in self.datakeys and datakey + '-Test' not in self.datakeys:
-                self.datakeys.append(datakey + '-Train')
-                self.datakeys.append(datakey + '-Test')
-        except:
-            pass
-
     def run(self):
         Modules.data_count += 1
         self.train_ind = Modules.data_count

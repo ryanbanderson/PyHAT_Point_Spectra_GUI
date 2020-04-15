@@ -25,7 +25,7 @@ class Ui_Form(Ui_Form, Modules):
         self.fit_interceptCheckBox.setChecked(lars.fit_intercept)
         self.normalizeCheckBox.setChecked(lars.normalize)
         self.n_nonzero_coefsSpinBox.setValue(lars.n_nonzero_coefs)
-        self.positiveCheckBox.setChecked(lars.positive)
+
 
     def run(self):
         params = {
@@ -35,8 +35,7 @@ class Ui_Form(Ui_Form, Modules):
             'precompute': 'auto',
             'n_nonzero_coefs': self.n_nonzero_coefsSpinBox.value(),
             'copy_X': True,
-            'fit_path': True,
-            'positive': self.positiveCheckBox.isChecked()
+            'fit_path': True
             }
         return params, self.getChangedValues(params, Lars())
 

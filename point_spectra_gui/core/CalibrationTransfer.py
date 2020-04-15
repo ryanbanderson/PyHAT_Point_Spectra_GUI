@@ -4,6 +4,7 @@ from point_spectra_gui.ui.CalibrationTransfer import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.core.caltranMethods import *
 from libpyhat.transform import cal_tran
+from libpyhat.transform import caltran_utils
 import pandas as pd
 import numpy as np
 
@@ -99,7 +100,7 @@ class CalibrationTransfer(Ui_Form, Modules):
             'Data sets B and C have different numbers of spectral channels!'
         assert (B['wvl'].columns.values[-1] == C['wvl'].columns.values[-1]),\
             "Data set B and C wavelengths are not identical. Check rounding and/or resample one data set onto the other's wavelengths"
-        A_mean, B_mean = caltran_prepare_data.prepare_data(A, B, dataAmatchcol, dataBmatchcol)
+        A_mean, B_mean = caltran_utils.prepare_data(A, B, dataAmatchcol, dataBmatchcol)
 
         method = self.chooseMethod.currentText()
         params = self.alg[method].run()

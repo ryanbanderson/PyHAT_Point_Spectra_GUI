@@ -3,7 +3,9 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -38,19 +40,13 @@ class Ui_Form(object):
         self.n_nonzero_coefsSpinBox = QtWidgets.QSpinBox(self.formGroupBox)
         self.n_nonzero_coefsSpinBox.setObjectName("n_nonzero_coefsSpinBox")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.n_nonzero_coefsSpinBox)
-        self.positiveLabel = QtWidgets.QLabel(self.formGroupBox)
-        self.positiveLabel.setObjectName("positiveLabel")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.positiveLabel)
-        self.positiveCheckBox = QtWidgets.QCheckBox(self.formGroupBox)
-        self.positiveCheckBox.setObjectName("positiveCheckBox")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.positiveCheckBox)
         self.max_iterLabel = QtWidgets.QLabel(self.formGroupBox)
         self.max_iterLabel.setObjectName("max_iterLabel")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.max_iterLabel)
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.max_iterLabel)
         self.max_iterSpinBox = QtWidgets.QSpinBox(self.formGroupBox)
         self.max_iterSpinBox.setEnabled(False)
         self.max_iterSpinBox.setObjectName("max_iterSpinBox")
-        self.formLayout.setWidget(4, QtWidgets.QFormLayout.FieldRole, self.max_iterSpinBox)
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.max_iterSpinBox)
         self.verticalLayout.addWidget(self.formGroupBox)
 
         self.retranslateUi(Form)
@@ -75,10 +71,6 @@ class Ui_Form(object):
         self.n_nonzero_coefsLabel.setText(("# of coefficients"))
         self.n_nonzero_coefsSpinBox.setToolTip(("Target number of non-zero coefficients. Use np.inf for no limit."))
         self.n_nonzero_coefsSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lars.html"))
-        self.positiveLabel.setText(("Force positive coefficients"))
-        self.positiveCheckBox.setToolTip(_translate("Form", "Restrict coefficients to be >= 0. Be aware that you might want to\n"
-"remove fit_intercept which is set True by default."))
-        self.positiveCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lars.html"))
         self.max_iterLabel.setText(("Max # of iterations"))
         self.max_iterSpinBox.setToolTip(("Maximum number of iterations to perform."))
         self.max_iterSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lars.html"))
@@ -92,4 +84,3 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

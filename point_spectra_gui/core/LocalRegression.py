@@ -57,8 +57,6 @@ class LocalRegression(Ui_Form, Modules):
         self.choosedata_train.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
 
-    def setup(self):
-        pass
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()

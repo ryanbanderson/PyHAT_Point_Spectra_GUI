@@ -24,13 +24,6 @@ class MaskData(Ui_Form, Modules):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.getDataButton_clicked(self.maskFileLineEdit))
 
-    def setup(self):
-        try:
-            self.setComboBox(self.chooseDataComboBox, self.datakeys)
-            self.run() #mask is pretty quick to run, so just call it when running setup
-        except:
-            pass
-
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
         maskfile = self.maskFileLineEdit.text()
