@@ -3,7 +3,9 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -57,4 +59,3 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-
