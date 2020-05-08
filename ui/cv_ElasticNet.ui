@@ -36,30 +36,10 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QDoubleSpinBox" name="minalpha_spin">
-        <property name="decimals">
-         <number>20</number>
-        </property>
-        <property name="maximum">
-         <double>999999999.000000000000000</double>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="maxalpha_label">
         <property name="text">
          <string>Max Alpha</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="maxalpha_spin">
-        <property name="decimals">
-         <number>20</number>
-        </property>
-        <property name="maximum">
-         <double>999999999.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -183,6 +163,20 @@
           <string>False</string>
          </property>
         </item>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="min_alpha_line_edit">
+        <property name="text">
+         <string>1e-10</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="max_alpha_line_edit">
+        <property name="text">
+         <string>1.0</string>
+        </property>
        </widget>
       </item>
      </layout>

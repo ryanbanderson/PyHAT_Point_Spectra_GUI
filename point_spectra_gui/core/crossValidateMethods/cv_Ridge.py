@@ -20,11 +20,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
 
     def connectWidgets(self):
         ridge = Ridge()
-        self.min_alpha_doubleSpinBox.setDecimals(20)
-        self.max_alpha_doubleSpinBox.setDecimals(20)
 
-        self.min_alpha_doubleSpinBox.setValue(0.000000000000001)
-        self.max_alpha_doubleSpinBox.setValue(0.01)
         self.n_alpha_spinBox.setValue(100)
         self.fit_intercept_list.setCurrentItem(
             self.fit_intercept_list.findItems(str(ridge.fit_intercept), QtCore.Qt.MatchExactly)[0])
@@ -34,9 +30,10 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
-
-        alphas = np.logspace(np.log10(self.min_alpha_doubleSpinBox.value()), np.log10(self.max_alpha_doubleSpinBox.value()),
+        alphas = np.logspace(np.log10(float(self.min_alpha_line_edit.text())),
+                             np.log10(float(self.max_alpha_line_edit.text())),
                              num=self.n_alpha_spinBox.value())
+
         params = {'alpha': alphas,
                   'fit_intercept': fit_intercept_items,
                   'normalize': normalize_items}

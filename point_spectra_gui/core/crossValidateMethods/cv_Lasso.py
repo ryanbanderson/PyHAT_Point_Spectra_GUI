@@ -19,11 +19,6 @@ class Ui_Form(Ui_Form, Lasso, Modules):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
-        self.minalpha_spin.setDecimals(20)
-        self.maxalpha_spin.setDecimals(20)
-
-        self.minalpha_spin.setValue(0.0000001)
-        self.maxalpha_spin.setValue(0.01)
         self.nalphas_spin.setValue(100)
 
         self.fit_intercept_list.setCurrentItem(
@@ -36,7 +31,7 @@ class Ui_Form(Ui_Form, Lasso, Modules):
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.forcePositive_list.selectedItems()]
-        alphas = np.logspace(np.log10(self.minalpha_spin.value()), np.log10(self.maxalpha_spin.value()),
+        alphas = np.logspace(np.log10(float(self.min_alpha_line_edit.text())), np.log10(float(self.max_alpha_line_edit.text())),
                              num=self.nalphas_spin.value())
         params = {
                   'fit_intercept': fit_intercept_items,
