@@ -141,7 +141,7 @@
       <item row="5" column="0">
        <widget class="QLabel" name="lambda2_label">
         <property name="text">
-         <string>Labda 2</string>
+         <string>Lambda 2</string>
         </property>
        </widget>
       </item>
