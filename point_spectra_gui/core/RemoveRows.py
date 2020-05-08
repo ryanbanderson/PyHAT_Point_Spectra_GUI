@@ -119,7 +119,7 @@ class RemoveRows(Ui_Form, Modules):
 
         match_combined = np.all(match_vectors, axis=0)
         print(self.data[datakey].df.shape)
-        self.data[datakey] = spectral_data(self.data[datakey].df.ix[~match_combined])
+        self.data[datakey] = spectral_data(self.data[datakey].df.iloc[~match_combined])
         print(self.data[datakey].df.shape)
 
     def evaluate_operation(self, datakey, operation_values):
