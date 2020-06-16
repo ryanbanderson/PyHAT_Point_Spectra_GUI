@@ -124,6 +124,8 @@ class CrossValidation(Ui_Form, Modules):
 
 
     def run(self):
+        self.cv_results_combined = None #clear previous results in case of re-run
+
         if 'Model Coefficients' in self.datakeys:
             pass
         else:
@@ -191,13 +193,14 @@ class CrossValidation(Ui_Form, Modules):
                                                                                          ycol=yvars, yrange=yrange, method=method,
                                                                                          alphas = alphas, calc_path = calc_path)
 
+            cv_results[('cv','Data_file')] = self.datafiles[datakey]
+            cv_results[('cv','ymin')] = yrange[0]
+            cv_results[('cv','ymax')] = yrange[1]
+            cv_results[('cv','ycol')] = yvars[0][1]
 
             data_for_cv = spectral_data(data_for_cv_out)
 
-            try:
-                self.cv_results_combined = pd.concat((self.cv_results_combined,cv_results))
-            except:
-                self.cv_results_combined = cv_results
+            self.cv_results_combined = pd.concat((self.cv_results_combined,cv_results))
 
             for key in cvpredictkeys:
                 self.list_amend(self.predictkeys, len(self.predictkeys), key)

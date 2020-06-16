@@ -23,6 +23,7 @@ class Modules:
     """
     data = {}  # initialize with an empty dict to hold data frames
     datakeys = []  # hold all the specific key for a specific data frame
+    datafiles = {}
     data_count = -1
     modelkeys = []
     models = {}  # For regression training

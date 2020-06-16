@@ -22,23 +22,15 @@ class Ui_Form(object):
         self.formLayout = QtWidgets.QFormLayout(self.groupBox)
         self.formLayout.setFieldGrowthPolicy(QtWidgets.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout.setObjectName("formLayout")
-        self.n_est_label = QtWidgets.QLabel(self.groupBox)
-        self.n_est_label.setObjectName("n_est_label")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.n_est_label)
-        self.n_est_spin = QtWidgets.QSpinBox(self.groupBox)
-        self.n_est_spin.setObjectName("n_est_spin")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.n_est_spin)
-        self.prop_outliers_label = QtWidgets.QLabel(self.groupBox)
-        self.prop_outliers_label.setToolTip("")
-        self.prop_outliers_label.setObjectName("prop_outliers_label")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.prop_outliers_label)
-        self.prop_outliers_spin = QtWidgets.QDoubleSpinBox(self.groupBox)
-        self.prop_outliers_spin.setDecimals(2)
-        self.prop_outliers_spin.setMaximum(1.0)
-        self.prop_outliers_spin.setSingleStep(0.01)
-        self.prop_outliers_spin.setProperty("value", 0.1)
-        self.prop_outliers_spin.setObjectName("prop_outliers_spin")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.prop_outliers_spin)
+        self.nc_label = QtWidgets.QLabel(self.groupBox)
+        self.nc_label.setObjectName("nc_label")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.nc_label)
+        self.nc_spin = QtWidgets.QSpinBox(self.groupBox)
+        self.nc_spin.setObjectName("nc_spin")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.nc_spin)
+        self.add_constant_check = QtWidgets.QCheckBox(self.groupBox)
+        self.add_constant_check.setObjectName("add_constant_check")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.add_constant_check)
         self.verticalLayout.addWidget(self.groupBox)
 
         self.retranslateUi(Form)
@@ -47,8 +39,8 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
-        self.n_est_label.setText(("# of estimators"))
-        self.prop_outliers_label.setText(("Proportion of outliers"))
+        self.nc_label.setText(("# of components"))
+        self.add_constant_check.setText(("Add a constant value to data to ensure it is non-negative?"))
 
 
 if __name__ == "__main__":

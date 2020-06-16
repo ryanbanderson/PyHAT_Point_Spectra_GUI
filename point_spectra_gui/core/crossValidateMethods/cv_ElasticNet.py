@@ -20,11 +20,7 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
 
     def connectWidgets(self):
         en = ElasticNet()
-        self.minalpha_spin.setDecimals(20)
-        self.maxalpha_spin.setDecimals(20)
 
-        self.minalpha_spin.setValue(0.000000000000001)
-        self.maxalpha_spin.setValue(0.01)
         self.nalpha_spin.setValue(100)
 
         self.enl1_ratioLineEdit.setText('0.1, 0.5, 0.7, 0.9, 0.95, 0.99, 1.0')
@@ -37,7 +33,9 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.enfit_intercept_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.enpositive_list.selectedItems()]
-        alphas = np.logspace(np.log10(self.minalpha_spin.value()), np.log10(self.maxalpha_spin.value()),
+
+        alphas = np.logspace(np.log10(float(self.min_alpha_line_edit.text())),
+                             np.log10(float(self.max_alpha_line_edit.text())),
                              num=self.nalpha_spin.value())
         params = {
             'l1_ratio': [float(i) for i in self.enl1_ratioLineEdit.text().split(',')],

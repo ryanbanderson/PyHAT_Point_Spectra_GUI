@@ -24,12 +24,33 @@ class DimensionalityReduction(Ui_Form, Modules):
                                'FastICA',
                                'JADE-ICA',
                                't-SNE',
-                               'LLE']
+                               'LLE',
+                               'NMF',
+                               'LDA']
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseMethodComboBox, self.algorithm_list)
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.make_dimred_widget(self.chooseMethodComboBox.currentText()))
+        self.chooseDataComboBox.currentIndexChanged.connect(self.update_LDA)
+        self.chooseMethodComboBox.currentIndexChanged.connect(self.update_LDA)
+        self.update_LDA()
+
+    def update_LDA(self):
+        if self.chooseMethodComboBox.currentText() == 'LDA':
+            new_y_choices = self.yvar_choices()
+            index = self.chooseMethodComboBox.currentIndex()
+            self.alg[index - 1].update(new_y_choices)
+        else:
+            pass
+
+    def yvar_choices(self):
+        try:
+            yvarchoices = self.data[self.chooseDataComboBox.currentText()].df.columns.values
+            yvarchoices = [i for i in yvarchoices if not 'Unnamed' in i]  # remove unnamed columns from choices
+        except:
+            yvarchoices = ['No valid columns!']
+        return yvarchoices
 
     def getGuiParams(self):
         """
@@ -73,13 +94,17 @@ class DimensionalityReduction(Ui_Form, Modules):
 
 
     def run(self):
-        method = self.chooseMethodComboBox.currentText()
-        datakey = self.chooseDataComboBox.currentText()
-        # xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
-        params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
         load_fit = False
         col = 'wvl'
-        df, dimred_obj = dim_red(self.data[datakey].df, col, method, [], params, load_fit)
+        method = self.chooseMethodComboBox.currentText()
+        datakey = self.chooseDataComboBox.currentText()
+        if method == 'LDA':
+            params, modelkey, ycol = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
+            df, dimred_obj = dim_red(self.data[datakey].df, col, method, [], params, load_fit, ycol=ycol)
+        else:
+            params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
+            df, dimred_obj = dim_red(self.data[datakey].df, col, method, [], params, load_fit)
+
         dimredkey = datakey+'-'+method
         self.dimredkeys.append(dimredkey)
         self.dimred[dimredkey] = dimred_obj
@@ -101,14 +126,16 @@ class DimensionalityReduction(Ui_Form, Modules):
                       dimred_FastICA,
                       dimred_JADE,
                       dimred_tSNE,
-                      dimred_LLE]
+                      dimred_LLE,
+                      dimred_NMF,
+                      dimred_LDA]
         for items in list_forms:
             self.alg.append(items.Ui_Form())
             self.alg[-1].setupUi(self.Form)
             self.dim_reduction_vlayout.addWidget(self.alg[-1].get_widget())
             self.alg[-1].setHidden(True)
 
-    def getMethodParams(self, index):
+    def getMethodParams(self, index, datakey=None):
         return self.alg[index - 1].run()
 
 

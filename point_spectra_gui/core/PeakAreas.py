@@ -36,8 +36,8 @@ class PeakAreas(Ui_Form, Modules):
             output['wvl']=wvls
             output.sort_values('wvl',axis=0,inplace=True)
             output.reset_index(inplace=True,drop=True)
-            output.to_csv(self.outpath+'/peaks_mins.csv')
-            print('Peaks and mins saved to '+self.outpath+'peaks_mins.csv')
+            output.to_csv(self.outpath+r'/peaks_mins.csv')
+            print('Peaks and mins saved to '+self.outpath+'/peaks_mins.csv')
 
         except Exception as e:
              print(e)
