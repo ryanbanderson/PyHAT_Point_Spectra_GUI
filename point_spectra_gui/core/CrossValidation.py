@@ -193,7 +193,6 @@ class CrossValidation(Ui_Form, Modules):
                                                                                          ycol=yvars, yrange=yrange, method=method,
                                                                                          alphas = alphas, calc_path = calc_path)
 
-            cv_results[('cv','Data_file')] = self.datafiles[datakey]
             cv_results[('cv','ymin')] = yrange[0]
             cv_results[('cv','ymax')] = yrange[1]
             cv_results[('cv','ycol')] = yvars[0][1]
