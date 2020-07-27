@@ -9,6 +9,8 @@ If lookupfile is a list, then each file will be read and concatenated together. 
 The default settings are for looking up ChemCam CCS csv data in the ChemCam master list files, matching on sclock value
 """
 import pandas as pd
+import numpy as np
+
 def lookup(df,lookupfile=None,lookupdf=None,sep=',',skiprows=1,left_on='sclock',right_on='Spacecraft Clock'):
 #TODO: automatically determine the number of rows to skip to handle ccam internal master list and PDS "official" master list formats
     if lookupfile is not None:
@@ -20,6 +22,11 @@ def lookup(df,lookupfile=None,lookupdf=None,sep=',',skiprows=1,left_on='sclock',
                 lookupdf = pd.concat([lookupdf, tmp])
             except:
                 lookupdf = pd.read_csv(x, sep=sep, skiprows=skiprows, error_bad_lines=False)
+
+    if len(lookupdf[right_on]) > len(np.unique(lookupdf[right_on])):
+        print('Warning: non-unique values found in metadata column '+str(right_on)+'! Removing duplicates.')
+        lookupdf.drop_duplicates(right_on,inplace=True)
+
     metadata = df['meta']
 
     metadata = metadata.merge(lookupdf, left_on=left_on, right_on=right_on, how='left')
