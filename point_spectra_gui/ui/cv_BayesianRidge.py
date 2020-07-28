@@ -110,7 +110,7 @@ class Ui_Form(object):
         self.alpha2LineEdit.setText(("0.000001"))
         self.lambdaLabel.setText(("Lambda 1"))
         self.lambdaLineEdit.setText(("0.000001"))
-        self.lambda2_label.setText(("Labda 2"))
+        self.lambda2_label.setText(("Lambda 2"))
         self.lambda2LineEdit.setText(("0.000001"))
         self.fitInterceptLabel.setText(("Fit Intercept"))
         __sortingEnabled = self.fitIntercept_List.isSortingEnabled()

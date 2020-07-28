@@ -11,7 +11,7 @@ from point_spectra_gui.core import MainWindow
 from point_spectra_gui.core import MaskData
 from point_spectra_gui.core import MultiplyByVector
 from point_spectra_gui.core import Normalization
-from point_spectra_gui.core import OutlierRemoval
+from point_spectra_gui.core import OutlierIdentify
 from point_spectra_gui.core import OutputFolder
 from point_spectra_gui.core import PeakAreas
 from point_spectra_gui.core import Plot
