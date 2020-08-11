@@ -60,7 +60,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
-        self.groupLayout.setTitle(("Remove Outliers"))
+        self.groupLayout.setTitle(("Identify Outliers"))
         self.chooseDataLabel.setText(("Choose Data"))
         self.xVariableLabel.setText(("X Variable"))
         __sortingEnabled = self.xVariableList.isSortingEnabled()

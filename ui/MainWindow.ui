@@ -232,7 +232,7 @@
     <addaction name="actionLook_Up_Metadata"/>
     <addaction name="actionRemove_Rows"/>
     <addaction name="actionCombine_Data_Sets"/>
-    <addaction name="actionOutlier_Removal"/>
+    <addaction name="actionOutlier_Identify"/>
     <addaction name="actionSplit_Data"/>
     <addaction name="actionStratified_Folds"/>
    </widget>
@@ -444,9 +444,9 @@
     <string>Combine Data Sets</string>
    </property>
   </action>
-  <action name="actionOutlier_Removal">
+  <action name="actionOutlier_Identify">
    <property name="text">
-    <string>Remove Outliers</string>
+    <string>Identify Outliers</string>
    </property>
   </action>
   <action name="actionSave_Trained_Model">

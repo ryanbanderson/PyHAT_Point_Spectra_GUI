@@ -1,18 +1,16 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.util import Qtickle
-from point_spectra_gui.core.outlierRemovalMethods import *
-from point_spectra_gui.ui.OutlierRemoval import Ui_Form
+from point_spectra_gui.core.outlierMethods import *
+from point_spectra_gui.ui.OutlierIdentify import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from libpyhat.utils.outlier_removal import outlier_removal
-from point_spectra_gui.util.spectral_data import spectral_data
 
-class OutlierRemoval(Ui_Form, Modules):
+class OutlierIdentify(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
         Modules.setupUi(self, Form)
-        self.outlierRemovalMethods()
+        self.outlierIdentifyMethods()
 
     def get_widget(self):
         return self.groupLayout
@@ -98,7 +96,7 @@ class OutlierRemoval(Ui_Form, Modules):
     def getMethodParams(self, index):
         return self.alg[index - 1].run()
 
-    def outlierRemovalMethods(self):
+    def outlierIdentifyMethods(self):
         self.alg = []
         list_forms = [outliers_IsolationForest,
                       outliers_LOF]
@@ -114,7 +112,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = OutlierRemoval()
+    ui = OutlierIdentify()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

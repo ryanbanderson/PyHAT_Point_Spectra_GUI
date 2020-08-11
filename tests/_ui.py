@@ -62,7 +62,7 @@ class Ui_MainWindow(MainWindow):
         self.addWidget(core.RegressionPredict.RegressionPredict)
         self.addWidget(core.RemoveRows.RemoveRows)
         self.addWidget(core.SplitDataset.SplitDataset)
-        self.addWidget(core.OutlierRemoval.OutlierRemoval)
+        self.addWidget(core.OutlierIdentify.OutlierRemoval)
         self.addWidget(core.StratifiedFolds.StratifiedFolds)
         self.addWidget(core.SubmodelBlend.SubmodelBlend)
         self.addWidget(core.SpecDeriv.SpecDeriv)

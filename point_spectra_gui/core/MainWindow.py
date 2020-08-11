@@ -256,8 +256,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.RemoveRows.RemoveRows))
             self.actionSplit_Data.triggered.connect(
                 lambda: self.addWidget(core.SplitDataset.SplitDataset))
-            self.actionOutlier_Removal.triggered.connect(
-                lambda: self.addWidget(core.OutlierRemoval.OutlierRemoval))
+            self.actionOutlier_Identify.triggered.connect(
+                lambda: self.addWidget(core.OutlierIdentify.OutlierIdentify))
             self.actionStratified_Folds.triggered.connect(
                 lambda: self.addWidget(core.StratifiedFolds.StratifiedFolds))
             self.actionSubmodel_Blend.triggered.connect(
