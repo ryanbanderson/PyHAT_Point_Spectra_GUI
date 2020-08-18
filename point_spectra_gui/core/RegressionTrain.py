@@ -119,6 +119,12 @@ class RegressionTrain(Ui_Form, Modules):
         else:
             Modules.data_count += 1
             self.list_amend(self.datakeys, Modules.data_count, 'Model Coefficients')
+        if 'Model Means' in self.datakeys:
+            pass
+        else:
+            Modules.data_count += 1
+            self.list_amend(self.datakeys, Modules.data_count, 'Model Means')
+
         Modules.model_count += 1
         self.count = Modules.model_count
 
@@ -157,6 +163,20 @@ class RegressionTrain(Ui_Form, Modules):
                 self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
             except:
                 self.data['Model Coefficients'] = spectral_data(coef)
+
+            #track the x mean from the model too
+
+            model_mean = np.squeeze(self.models[modelkey].model.x_mean_)
+            model_mean = pd.DataFrame(model_mean)
+            model_mean.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
+            model_mean = model_mean.T
+            model_mean[('meta', 'Model')] = modelkey
+            model_mean[('meta','ymean')] = self.models[modelkey].model.y_mean_
+            
+            try:
+                self.data['Model Means'] = spectral_data(pd.concat([self.data['Model Means'].df, model_mean]))
+            except:
+                self.data['Model Means'] = spectral_data(model_mean)
 
         except:
             pass
