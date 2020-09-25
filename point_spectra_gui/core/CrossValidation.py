@@ -143,14 +143,19 @@ class CrossValidation(Ui_Form, Modules):
             paramgrids['BRR']=list(ParameterGrid(self.alg['BRR'][0].run()))
         if self.ENetcheckbox.isChecked():
             enet_params=self.alg['Elastic Net'][0].run()
-            paramgrids['Elastic Net']={'alphas':enet_params[1],'params':list(ParameterGrid(enet_params[0]))}
+            params = enet_params[0]
+            params['alpha'] = enet_params[1]
+            paramgrids['Elastic Net']=list(ParameterGrid(params))
         # if self.GPcheckBox.isChecked():
         #     paramgrids.append(list(ParameterGrid(self.alg['GP - Gaussian Processes'][0].run())))
         if self.LARScheckbox.isChecked():
             paramgrids['LARS']=list(ParameterGrid(self.alg['LARS'][0].run()))
         if self.LASSOcheckBox.isChecked():
             lasso_params=self.alg['LASSO'][0].run()
-            paramgrids['LASSO']={'alphas':lasso_params[1],'params':list(ParameterGrid(lasso_params[0]))}
+            params = lasso_params[0]
+            params['alpha'] = lasso_params[1]
+            paramgrids['LASSO'] = list(ParameterGrid(params))
+            #paramgrids['LASSO']={'alphas':lasso_params[1],'params':list(ParameterGrid(lasso_params[0]))}
 
         if self.OLScheckBox.isChecked():
             paramgrids['OLS']=list(ParameterGrid(self.alg['OLS'][0].run()))
@@ -178,7 +183,7 @@ class CrossValidation(Ui_Form, Modules):
             print('===== Cross validating '+key+' =====')
             method=key
             #if the method supports it, separate out alpha from the other parameters and prepare for calculating path
-            path_methods =  ['Elastic Net', 'LASSO']#, 'Ridge']
+            path_methods =  []#['Elastic Net', 'LASSO']#, 'Ridge']
             if method in path_methods:
                 calc_path = True
                 alphas = paramgrids[key]['alphas']
@@ -187,6 +192,7 @@ class CrossValidation(Ui_Form, Modules):
                 alphas = None
                 calc_path = False
                 paramgrid = paramgrids[key]
+
             cv_obj = cv.cv(paramgrid)
 
             data_for_cv_out, cv_results, cvmodels, cvmodelkeys, cvpredictkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
