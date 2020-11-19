@@ -33,8 +33,11 @@ class RegressionPredict(Ui_Form, Modules):
                 x_var_tmp = self.model_xvars[modelkey]
                 data_tmp = self.data[datakey].df[x_var_tmp]
                 data_tmp.fillna(value=0, inplace=True)
-                if self.data[datakey].df[x_var_tmp].shape[1] != self.models[modelkey].model.coef_.shape[0]:
-                    print("Warning: Size of input dataframe does not match size of validation dataset.")
+                try:
+                    if self.data[datakey].df[x_var_tmp].shape[1] != self.models[modelkey].model.coef_.shape[0]:
+                        print("Warning: Length of input data does not match length of coefficient vector.")
+                except:
+                    pass
                 prediction = self.models[modelkey].predict(data_tmp)
                 predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
                 self.data[datakey].df[predictname] = prediction
